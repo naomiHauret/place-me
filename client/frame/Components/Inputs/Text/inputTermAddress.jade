@@ -1,0 +1,19 @@
+template(name="inputTermAddress")
+  div(class="row")
+    div(class="column")
+      label(for="streetAddressSchool")
+        i(class="fa fa-home")
+        | Address , line 1
+      input(type="text" placeholder="e.g: 12 Awesome road" aria-labelledby="street address" name="streetAddressSchool" class="required" required) 
+  div(class="row")
+    div(class="column")
+      label(for="streetAddress2School") Address, line 2 (optional)
+      input(type="text" aria-labelledby="street address" name="streetAddress2School" )   
+  div(class="row")
+    div(class="column")
+      label(for="citySchool") City
+      input(type="text" placeholder="e.g: Awesome City" aria-labelledby="city" name="citySchool" class="required" required) 
+  div(class="row")
+    div(class="column")
+      label(for="zipcodeSchool") Postcode
+      input(type="text" placeholder="e.g: BIQQ 1ZZ " aria-labelledby="zip" name="zipcodeSchool" class="required" required) 

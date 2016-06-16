@@ -1,0 +1,13 @@
+/*
+    /client/stylesheets/_bert.scss
+    Bert alerts styling
+
+*/
+.bert-alert{
+  font-family: $textBold;
+  font-size:15px;
+}
+
+.bert-alert.warning{
+  background: rgb(232,162,0);
+}

@@ -1,0 +1,9 @@
+template(name="cohortFilter")
+  div(class="column")
+    label(for="cohort")
+      i(class="fa fa-graduation-cap " aria-hidden="true")
+      | Cohort
+    select( aria-labelledby="cohort" name="cohort" )
+      option(selected value="student") All cohorts
+      each cohort
+        option(value="{{ _id }}") {{ cohortYear }}

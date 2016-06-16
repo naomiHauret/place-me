@@ -1,0 +1,8 @@
+template(name="dateOrder")
+  div(class="column")
+    label(for="dateOrder")
+      i(class="fa fa-unlock-alt " aria-hidden="true")
+      | Date of publication
+    select( aria-labelledby="order by date" name="dateOrder" )
+      option(selected value="newest") Newest
+      option(value="oldest")  Oldest

@@ -1,0 +1,7 @@
+template(name="sidebar")
+  div(class="ui sidebar right very wide")
+    button(type="button" name="closeSidebar" class="closeSidebar")
+      div(class="column")
+        i(class="fa fa-times" aria-hidden="true")
+        | Close
+    {{> yield "sidebar" }}

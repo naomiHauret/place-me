@@ -1,0 +1,121 @@
+template(name="breadcrumbOfferDetails")
+  li(class="crumb") Offers
+  li(class="crumb active") ref. {{ offer._id }} 
+      
+template(name="contentIndicationsOfferDetails")
+  p
+    i(class="fa fa-briefcase fa-fw fa-2x" aria-hidden="true")
+    | This offer is
+    b {{ offerStatus }}
+    | and was posted on the
+    b {{ publicationDate }}
+  if isInRole "tutor"
+    br
+    p You can update the details of this offer by clicking the "Edit details" button below.
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////  
+//////////////////////////////////////////////////////////////////////////////////////////////////////////  
+template(name="contentOfferDetails")
+  div(class="row row_actions") 
+    if isInRole "tutor"
+      button(value="{{ offer._id }}" class="column edit" title="Edit..." name="edit")
+        span
+          span(class="icon iconAction-book")
+          | Edit...
+      button(value="{{ offer._id }}" title="Place a student..." class="column place" name="place")
+        span
+          span(class="icon iconAction-place")
+            | Place a student...
+      button(value="{{ offer._id }}" title="Delete this offer" class="column delete" name="delete")
+        span
+          span(class="icon iconAction-delete")
+          | Delete
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////  
+  form
+    {{> yield "contentIndications" }}
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////  
+    span(class="separator")
+    h4 Information
+    div(class="row")
+      div(class="column")
+        label
+          i(class="fa fa-qrcode" aria-hidden="true")
+          | Reference
+        span {{ offer._id }}    
+      div(class="column")
+        label
+          i(class="fa fa-calendar-o")
+          | Publication date
+        span {{ publicationDate }}
+    div(class="row")
+      div(class="column")
+        label
+          i(class="fa fa-building-o" aria-hidden="true")
+          | Host organization
+        span
+          a(href="/app/establishments/{{ hostOrganizationId }}" title="See the establishment details") {{ hostOrganization }}
+      div(class="column")
+        label
+          i(class="fa fa-tags" aria-hidden="true")
+          | Themetypes
+        span {{ themetypes }}
+    span(class="separator")
+    h4 Places
+    div(class="row")
+      div(class="column")
+        label
+          i(class="fa fa-graduation-cap")
+          | Number of places
+        span {{ offer.initialPlacementsNumber }}
+      div(class="column")
+        label
+          i(class="fa fa-map-marker" aria-hidden="true")
+          | Places left
+        span {{ offer.currentPlacementsNumber }}
+          b 
+            | (This offer is {{ offerStatus }})
+    span(class="separator")
+    h4 Dates
+    div(class="row")
+      div(class="column")
+        label
+          i(class="fa fa-flag-o " aria-hidden="true")
+          | Date of start
+        span {{ publicationDate }}
+      div(class="column")
+        label
+          i(class="fa fa-flag-checkered " aria-hidden="true")
+          | Date of end
+        span {{ offer.endDate }}
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////    
+    span(class="separator")
+    h4 Provided
+    div(class="row")
+      div(class="column")
+        label
+          i(class="fa fa-bed" aria-hidden="true")
+          | Accommodation
+        p {{ isAccommodationProvided }}
+      div(class="column")
+        label
+          i(class="fa fa-car" aria-hidden="true")
+          | Car
+        p {{ isCarProvided }}
+    span(class="separator")
+    h4 Other information
+    div(class="row")
+      div(class="column")
+        label
+          i(class="fa fa-ellipsis-h" aria-hidden="true")
+          | Additional information
+        p {{ offer.additionalInformation }}
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////    
+    span(class="separator")
+    h4 Location
+    div(class="row")
+      div(class="column")
+        label
+          i(class="fa fa-map-signs" aria-hidden="true")
+          | How to access
+        div(class="map-container")
+          {{> googleMap name="establishmentPositionMap" options=establishmentPosition }}

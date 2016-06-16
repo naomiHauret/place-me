@@ -1,0 +1,12 @@
+template(name="pageNotFound")
+  div(class="notFound")
+    div(class="center")
+      div(class="logo")
+        span Place 
+          i(class="fa fa-map-marker fa-fw" aria-hidden="true")
+          | Me
+        h2 Page not found.
+        p Uh oh. Seems like you're lost.
+        p Why don't you 
+          a(href="{{pathFor 'home' }}" title="go home") go home 
+          | ?    

@@ -1,0 +1,22 @@
+template(name="applayout")
+  div(class="pusher")  
+    header(class="appHeader")
+      {{> appHeader }}
+    div(class="wrap" )
+      {{> menu }}
+      unless noAsideMenu
+        aside(class="column column_content column_content-left content_aside")
+          div( class="content")
+            h1(class="page_menu-title") {{> yield "menuTitle" }}
+            {{> yield "menuContent" }}
+      div(class="column column_content column_content-right content_main" )
+        h1
+          ul(class="breadcrumb")
+            {{> yield "breadcrumb" }}
+        div(class="content" )
+          {{> yield }}
+        div(class="floating-container")
+          {{> yield "floatingButtons" }}
+  {{> sidebar }}
+  {{> overlay }}
+    

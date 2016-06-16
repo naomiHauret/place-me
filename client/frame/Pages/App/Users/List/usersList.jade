@@ -1,0 +1,29 @@
+template(name="usersList")
+  ul(class="list_result")
+    +EasySearch.Each index=index
+      a(href="/app/profile/{{_id}}" title="See profile")
+        li(class="list_result-item")
+          div(class="result")
+            div(class="row row_main")
+              span(class="column") {{ profile.firstName }} {{ profile.lastName }}
+              span(class="column") {{ status }}
+              span(class="column") {{ email }}
+              span(class="column") {{ profile.phone }}
+      unless profileCurrentUser 
+        div(class="row row_aside") 
+          if isInRole "tutor"
+            if authorized
+              button(value="{{__originalId}}" class="column result_button" type="button" title="Restrict access" name="restrict")
+                span
+                  span(class="icon iconAction-restrict")
+                  | Restrict access
+            else
+              button(value="{{__originalId}}" class="column result_button" type="button" title="Give back access" name="giveAccess")
+                span
+                  span(class="icon iconAction-giveAccess")
+                  | Authorize access
+            button(value="{{__originalId}}" title="delete user" type="button" class="column result_button" name="delete")
+              span
+                span(class="icon iconAction-delete")
+                | Delete
+  {{ > EasySearch.LoadMore index=index attributes=buttonAttributes }}

@@ -1,0 +1,9 @@
+template(name="programmeList")
+  div(class="column")
+    label(for="programme")
+      i(class="fa fa-certificate " aria-hidden="true")
+      | Programme
+    select( aria-labelledby="programme" name="programme" required)
+      option(disabled value selected) -- Select a programme --
+      each programme
+        option(value= "{{ _id }}") {{ programmeName }}

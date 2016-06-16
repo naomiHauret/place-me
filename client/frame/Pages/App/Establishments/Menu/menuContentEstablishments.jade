@@ -1,0 +1,4 @@
+template(name="menuContentEstablishments")
+  {{> browseEstablishments }}
+  if isInRole "tutor"
+    {{> addEstablisments }}

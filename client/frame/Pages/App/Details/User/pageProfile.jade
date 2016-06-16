@@ -1,0 +1,189 @@
+template(name="breadcrumbProfile")
+  if profileCurrentUser
+    li(class="crumb active") My profile
+  else 
+    li(class="crumb") Users
+    li(class="crumb active") {{ user.profile.firstName }} {{ user.profile.lastName }}
+        
+template(name="contentIndicationsProfile")
+  if profileCurrentUser
+    p You can update your profile by clicking the "Edit my profile" button below.
+  else
+    h3
+      if isStudent  
+        i(class="fa fa-graduation-cap fa-fw fa-2x" aria-hidden="true")
+        | {{ user.profile.firstName }} {{ user.profile.lastName }} is 
+        b a student.
+      if isTutor
+        i(class="fa fa-suitcase fa-fw fa-2x" aria-hidden="true")
+        | {{ user.profile.firstName }} {{ user.profile.lastName }} is 
+        b a tutor.
+      if isCoordinator
+        i(class="fa fa-hospital-o fa-fw fa-2x" aria-hidden="true")
+        | {{ user.profile.firstName }} {{ user.profile.lastName }} is 
+        b  a coordinator.
+      if isEducator
+        i(class="fa fa-medkit fa-fw fa-2x" aria-hidden="true")
+        | {{ user.profile.firstName }} {{ user.profile.lastName }} is 
+        b an educator.
+template(name="contentProfile")
+  h3
+    {{> yield "contentIndications" }}
+  if profileCurrentUser
+    div(class="row row_actions")
+      button(type="button" value='{{ user._id }}' class="column edit" name="editButton")
+        span
+          span(class="icon iconAction-edit")
+          | Edit my profile
+      button(value="{{ user._id }}" class="column seeRecord" title="See placement record..." name="seeRecord")
+        span
+          span(class="icon iconAction-book")
+          | My placements record...
+      button(value="{{ user._id }}" class="column seeLogin" title="See login history..." name="seeActivity")
+        span
+          span(class="icon iconAction-activity")
+          | My login history... 
+  else
+    div(class="row row_actions") 
+      if isInRole "tutor"
+        button(type="button" value='{{ user._id }}' class="column edit" name="editButton")
+          span
+            span(class="icon iconAction-edit")
+            | Edit profile
+        unless isCoordinator
+          button(value="{{ user._id }}" class="column seeRecord" title="See placement record..." name="seeRecord")
+            span
+              span(class="icon iconAction-book")
+              | Placements record...
+        button(value="{{ user._id }}" class="column seeLogin" title="See login history..." name="seeActivity")
+          span
+            span(class="icon iconAction-activity")
+            | Login history...
+        if isAuthorized
+          button(value="{{ user._id }}" class="column restrict" title="Restrict access" name="restrict")
+            span
+              span(class="icon iconAction-restrict")
+                | Restrict access
+        else
+          button(value="{{ user_id }}" class="column giveAccess" title="Give back access" name="giveAccess")
+            span
+              span(class="icon iconAction-giveAccess")
+                | Authorize access
+        button(value="{{ user._id }}" title="delete user" class="column delete " name="delete")
+          span
+            span(class="icon iconAction-delete")
+            | Delete
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////  
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  form
+    span(class="separator")
+    h4 Personal information
+    div(class="row")
+      div(class="column")
+        label First name
+        span {{ user.profile.firstName }}
+      div(class="column")
+        label Last name
+        span {{ user.profile.lastName }}
+    if isStudent
+      div(class="row")
+        div(class="column")
+          label
+            i(class="fa fa-birthday-cake" aria-hidden="true")
+            | Birthday date (MM/DD/YYYY)
+          span {{ user.profile.birthday }}
+    span(class="separator")
+    h4 Contact
+    div(class="row")
+      div(class="column")
+        label
+          i(class="fa fa-phone" aria-hidden="true")
+          | Phone number (international format)
+        span {{ user.profile.phone }}
+      div(class="column")
+        label
+          i(class="fa fa-envelope-o" aria-hidden="true")
+          | E-mail
+        span {{ userEmail }}
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////  
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    if isStudent
+      {{> yield "studentProfile" }}
+    +contentFor("studentProfile")
+      span(class="separator")
+      h4 Status-related information
+      div(class="row")   
+        div(class="column")
+          label
+            i(class="fa fa-graduation-cap " aria-hidden="true")
+            | Cohort 
+          span {{ userCohort }}
+        div(class="column")
+          label
+            i(class="fa fa-certificate " aria-hidden="true")
+            | Programme
+          span {{ userProgramme }}
+      div(class="row")     
+        div(class="column")
+          label
+            i(class="fa fa-clock-o" aria-hidden="true")
+            | Accruded hours
+          span {{ user.profile.numberHours }}
+        div(class="column")
+          label
+            i(class="fa fa-map-marker" aria-hidden="true")
+            | Placement
+          span {{ userPlaced }}
+      span(class="separator")
+      h4 Addresses
+      div(class="row")
+        div(class="column")
+          label Permanent address
+          span {{ userPermanentAddress }}
+        div(class="column")
+          label Term address (address during studies)
+          span {{ userStudyAddress }}
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////  
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    if isTutor
+      {{> yield "tutorProfile" }}
+    +contentFor("tutorProfile")
+      h4 Address
+      div(class="row")
+        div(class="column")
+          label Address
+          span {{ userPermanentAddress }}
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////  
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////    
+    if isEducator
+      {{> yield "educatorProfile" }}
+    +contentFor("educatorProfile")
+      span(class="separator")
+      h4 Status-related information
+      div(class="row")   
+        div(class="column")
+          label
+            i(class="fa fa-building-o " aria-hidden="true")
+            | Organization
+          span 
+            a(href="/app/establishments/{{ user.profile.hostOrganizationId }}" title="See this establishment") {{ userHostOrganization }}
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////  
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////  
+    if isCoordinator
+      {{> yield "coordinatorProfile" }}
+      +contentFor("coordinatorProfile")
+        span(class="separator")
+        h4 Status-related information
+        div(class="row")   
+          div(class="column")
+            label
+              i(class="fa fa-building-o " aria-hidden="true")
+              | Organization
+            span 
+              a(href="/app/establishments/{{ user.profile.trustOrganizationId }}" title="See this establishment") {{ userTrustOrganization }}
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////  
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////  
+
+    
+
+    

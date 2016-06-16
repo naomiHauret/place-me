@@ -1,0 +1,180 @@
+//////////////////////////////////////////////////////
+//////// FORM
+/////////////////////////////////////////////////////
+
+form{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  margin:auto;
+  width:100%;
+  input[type="radio"]{
+    margin-right: 8px;
+    margin-left: 8px;
+    cursor: pointer;
+  }
+  .separator{
+    margin-top:10px;
+    margin-bottom:10px;
+    width:100%;
+    height:1px;
+    background:$lighter-white;
+    color: $darkest-white;
+  }
+  .row{
+    display:flex;
+    flex:1;
+
+    .column{
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      margin-right:10px;
+      margin-left:10px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      input {
+        flex:1;
+      }
+    }
+  }
+
+  label{
+    text-align:left;
+    font-weight:600;
+    margin-bottom:5px;
+    color: rgb(120,120,145);
+  }
+
+  button, input, select, textarea{
+    border-radius:5px;
+    border:none;
+    padding:5px;
+    margin-bottom:25px;
+  }
+  label{
+    font-family:$textBold;
+  }
+  button{
+    background: $primary-purple;
+    color:white;
+    margin:auto;
+    margin-top:25px;
+    margin-bottom:25px;
+    width:80%;
+    padding:16px;
+    cursor:pointer;
+    font-family: $textBolder;
+    transition:0.4s;
+  }
+
+  button:hover{
+    background: $lighter-purple;
+  }
+
+  button:focus{
+    background:$lighter-purple;
+  }
+
+  .result_button{
+   color:rgb(60,60,80);
+   background:none;
+   border:none;
+   margin:auto;
+   color: $darker-steel;
+   font-family: $text;
+   font-style:italic;
+   padding-top:10px;
+   padding-bottom:10px;
+   margin-right:8px;
+   margin-left:8px;
+   text-align:right;
+   flex:1;
+   transition:0.3s;
+ }
+
+
+ .result_button:hover, .result_button:focus{
+     text-align:center;
+     background:$lighter-white;
+   }
+
+ .result_button:focus{
+   color: $primary-purple;
+   font-size:18px;
+ }
+ .result_button:hover{
+   font-size:15px;
+ }
+}
+
+input, select, textarea{
+  border: none;
+  background:none;
+  border-radius:0;
+  border-radius:5px;
+  background:rgb(243,243,243);
+  color: rgb(150,150,150);
+  transition:0.4s;
+}
+
+.intl-tel-input, .select2-container, .select2-drop, .select2-search, .select2-search input {
+  margin-bottom: 25px;
+}
+input:hover, textarea:hover{
+  background:rgb(230,233,240);
+    color:$primary-steel;
+}
+
+input:focus, select:focus, text-area:focus{
+  padding:15px;
+  font-size:22px;
+  background: rgb(222,222,222);
+  color:rgb(110,110,110);
+}
+
+input:disabled, select:disabled, textarea:disabled{
+  border:none;
+  background:none;
+  color: rgb(31, 31, 31);
+}
+
+.intl-tel-input input, .intl-tel-input input[type="text"], .intl-tel-input input[type="tel"] {
+    width: 100%;
+}
+
+.required{
+  box-shadow: none;
+}
+.select2-search-choice-close {
+  background: none;
+  background: transparent;
+  background: url("/packages/natestrauser_select2/lib/select2/select2.png") right top no-repeat;
+}
+select:disabled, input[type="number"]:disabled{
+  appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -webkit-appearance:none;
+}
+
+.login, .passwordForgotten, .resetPassword {
+  form{
+    label{
+      color: white;
+  }
+}
+}
+
+@media screen and (max-width: 640px){
+  form{
+    .row{
+      display:flex;
+      flex-direction:column;
+      overflow-x:hidden;
+    }
+    .column{
+      overflow-x: hidden;
+    }
+  }
+}

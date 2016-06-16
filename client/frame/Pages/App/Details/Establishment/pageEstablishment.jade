@@ -1,0 +1,83 @@
+template(name="breadcrumbEstablishmentDetails")
+  li(class="crumb") Establishments
+  li(class="crumb active") {{ establishment.name }}
+      
+template(name="contentIndicationsEstablishmentDetails")
+  h3
+    i(class="fa fa-hospital-o fa-fw fa-2x" aria-hidden="true")
+    | {{ establishment.name }} is 
+    b
+      if isHost
+        | a host organization.
+      if isTrust
+        | a trust organization
+  if isInRole "tutor"
+    br
+    p You can update the details of {{ establishment.name }}  by clicking the "Edit details" button below.
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////  
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////  
+
+template(name="contentEstablishmentDetails")
+  div(class="row row_actions") 
+    button(value="{{ establishment._id }}" class="column " title="See staff list..." name="staff" )
+      span
+        span(class="icon iconAction-staff")
+        | Staff list...
+    if isInRole "tutor"
+      button(value="{{ establishment._id }}" class="column " title="Edit..." name="edit")
+        span
+          span(class="icon iconAction-book")
+          | Edit...
+      button(value="{{ establishment._id }}" title="Delete this establishment" class="column delete " name="delete")
+        span
+          span(class="icon iconAction-delete")
+          | Delete
+  form
+    {{> yield "contentIndications" }}
+    span(class="separator")
+    h4 Usual information
+    div(class="row")
+      div(class="column")
+        label
+          i(class="fa fa-info" aria-hidden="true")
+          | Name
+        span {{ establishment.name }}
+      if isHost 
+        div(class="column")
+          label
+            i(class="fa fa-building-o " aria-hidden="true")
+            | Trust organization
+          span 
+            a(href="/app/establishment/{{ establishment.trustOrganizationId }}" title="See this establishment") {{ establishmentTrustOrganization }}
+    div(class="row")
+      div(class="column")
+        label
+          i(class="fa fa-ellipsis-h" aria-hidden="true")
+          | Additional notes
+        p {{ establishment.additionalInformation }}
+
+    span(class="separator")
+    h4 Contact and location
+    div(class="row")
+      div(class="column")
+        label
+          i(class="fa fa-phone" aria-hidden="true")
+          | Phone number (international format)
+        span {{ establishment.phone }}
+      //div(class="column")
+        //label
+          //i(class="fa fa-envelope-o" aria-hidden="true")
+          //| E-mail
+        //span {{ establishment.email }}
+      div(class="column")
+        label
+          i(class="fa fa-home" aria-hidden="true")
+          | Address
+        span {{ establishmentAddress }}
+    div(class="row")
+      div(class="column")
+        label
+          i(class="fa fa-map-signs" aria-hidden="true")
+          | How to access
+        div(class="map-container")
+          {{> googleMap name="establishmentPositionMap" options=establishmentPosition }}

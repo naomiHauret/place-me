@@ -1,0 +1,10 @@
+template(name="hostList")
+  div(class="row")
+    label(for="hostEstablishment") 
+      i(class="fa fa-hospital-o fa-fw" aria-hidden="true")
+      | Host establishment
+    br
+    select( class="hostSelect" aria-labelledby="list of establishments" name="hostEstablishment" required)
+      option(disabled selected value="") -- Type or select a host organization --
+      each hostOrganization
+        option(value="{{ _id }}" data-id="{{ _id }}") {{ name }} ({{ address.city }})

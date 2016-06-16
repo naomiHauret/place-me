@@ -1,0 +1,40 @@
+template(name="breadcrumbAddOffers")
+  li(class="crumb") Offers
+  li(class="crumb") Add
+  li(class="crumb active") Placement offer
+  
+template(name="contentIndicationsAddOffer")
+  | To add a new placement offer please fill the form below.
+  
+template(name="contentAddOffers")
+  if isInRole "tutor"
+    +contentFor("floatingButtons")
+      button(class="floating-button" type="button" name="quickAddHost" title="Add a host organization...")
+        i( class="fa fa-building-o" aria-hidden="true")
+        i(class="fa fa-plus fa-small" aria-hidden="true")
+      button(class="floating-button" type="button" name="quickAddThemetypes" title="Add a themetype...")
+        i( class="fa fa-tags" aria-hidden="true")
+        i(class="fa fa-plus fa-small" aria-hidden="true")
+  div(class="content_form")
+    form(name="addOffer")
+      {{> hostList }}
+      {{> themetypesCloud }}
+      div(class="row")
+      div(class="column")
+        label(for="studentsNumber")
+          i(class="fa fa-graduation-cap" aria-hidden="true")
+          | Number of students
+        input(type="number" name="studentsNumber" min="1" value="1" aria-labelledby="number of students" required) 
+      {{> inputDates }}
+      {{> provisionCheckboxes }}
+      {{> textareaAdditionalInformation }}
+      div(class="row")
+        unless adding
+          button(type="submit")
+            i(class="fa fa-plus" aria-hidden='true')
+            | Add a new placement offer
+        else
+          div(class="column center")
+            p
+              i(class="fa fa-spinner fa-spin fa-2x" aria-hidden="true")
+              | We're adding this new offer, please wait...

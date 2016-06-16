@@ -1,0 +1,18 @@
+template(name="footer")
+  div(class="column column_copyright")
+    span
+      i(class="fa fa-copyright") 
+      | Copyright Glyndŵr University, 2016
+  div(class="column column_logo")
+    a(href="http://www.glyndwr.ac.uk/" title="go to Glyndŵr University website")
+      img(src="/images/university-logo-white.png" alt="Glyndŵr University logo" title="Glyndŵr University")
+  div(class="column column_links")
+    a(href="" title="Go to 'home' page" class="footer-link column") Home
+    if currentUser
+      a(href="{{ pathFor 'dashboard' }}" title="Go to my dashboard" class="footer-link column") Dashboard
+    else
+      a(href="{{ pathFor 'login' }}" title="Go to 'sign in' page" class="footer-link column") Sign in
+      a(href="{{ pathFor 'register' }}" title="Go to 'register' page" class="footer-link column") Register
+      a(href="{{ pathFor 'password-forgotten' }}" title="Go to 'password forgotten' page" class="footer-link column") Password forgotten
+    a(href="{{ pathFor 'about' }}" title="Go to 'about' page" class="footer-link column") About
+    a(href="{{ pathFor 'legal' }}" title="Go to 'legal' page" class="footer-link column") Legal

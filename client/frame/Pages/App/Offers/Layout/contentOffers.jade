@@ -1,0 +1,63 @@
+template(name="contentOffers")
+  +contentFor("floatingButtons")
+    button(class="floating-button" type="button" title="Update offers..." )
+      i( class="fa fa-upload ")
+      i(class="fa fa-ellipsis-h fa-small")
+  form(class="form_search-quick")
+    h2 Browse offers
+    +EasySearch.IfInputEmpty index=index
+      div(class="_input-example") 
+        div(class="row")
+          h4 Filter by
+        div(class="row row_subfilter")
+          {{> hostFilter }}
+          {{> accommodationFilter }}
+          {{> carFilter }}
+        div(class="row")
+          h4 Order by
+        div(class="row row_subfilter")
+          {{> dateOrder }}
+    +EasySearch.IfSearching index=index
+      p Searching...
+    div(class="row")
+      div(class='column')
+        h4 Results: {{resultsCount}} 
+      div(class="column")
+        p {{> yield "contentIndications" }}
+    ul(class="list_result")  
+      li(class="list_result-item list_result-header")
+        div(class="result")
+          div(class="row row_main")
+            span(class="column")
+              b Reference
+            span(class="column")
+              b Host organization
+            span(class="column")
+              b Themetypes
+            span(class="column")
+              b Date of start
+            span(class="column")
+              b Date of end
+      +EasySearch.Each index=index
+        a(href="/app/offers/{{_id}}" title="See the offer details")
+          li(class="list_result-item")
+            div(class="result")
+              div(class="row row_main")
+                span(class="column") {{ _id }}
+                span(class="column") {{ hostOrganization }}
+                span(class="column") {{ themetypes }}
+                span(class="column") {{ startDate }}
+                span(class="column") {{ endDate }}
+          if isInRole "tutor"
+            div(class="row row_aside") 
+              button(value="{{_id}}" title="place a student" type="button" class="column result_button place" name="place")
+                span
+                  span(class="icon iconAction-place")
+                  | Place a student 
+              button(value="{{_id}}" title="delete offer" type="button" class="column result_button delete" name="delete")
+                span
+                  span(class="icon iconAction-delete")
+                  | Delete
+    {{ > EasySearch.LoadMore index=index attributes=buttonAttributes }}
+    +EasySearch.IfNoResults index=index
+      p There are no offers corresponding to these criteria.

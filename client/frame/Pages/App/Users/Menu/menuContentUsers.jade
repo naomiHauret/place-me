@@ -1,0 +1,4 @@
+template(name="menuContentUsers")
+  {{> browseUsers }}
+  if isInRole "tutor"
+    {{> addUsers }}

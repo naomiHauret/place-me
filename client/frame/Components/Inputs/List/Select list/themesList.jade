@@ -1,0 +1,11 @@
+template(name="themesList")
+  div(class="row")
+    label(for="themeList")
+      i(class="fa fa-tag fa-fw" aria-hidden="true")
+      | Theme
+    br
+    select( class="themesSelect" aria-labelledby="list of themes" name="themeList" required)
+      option(disabled selected value="") -- Type or select a theme --
+      each theme
+        option(value="{{ _id }}" data-id="{{ _id }}") {{ themeName }} 
+    

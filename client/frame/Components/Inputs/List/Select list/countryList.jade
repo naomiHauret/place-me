@@ -1,0 +1,7 @@
+template(name="countryList")
+  div(class="column")
+    label(for="country") Country
+    select( class="countrySelect" aria-labelledby="list of countries" name="country" required)
+      option(selected disabled value) -- Type or select a country --
+      each countries
+        option(value="{{ cn_short_en }}" data-id="{{ cn_short_en }}") {{ cn_short_en }} ({{ cn_short_local }})

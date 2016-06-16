@@ -1,0 +1,15 @@
+template(name="organizationInput")
+  div(class="row")
+    div(class="column")
+      label(for="organizationName")
+        i(class="fa fa-info" aria-hidden="true")
+        | Organization name
+      input(type="text" placeholder="e.g:  St Mungo's Hospital" name="organizationName" aria-labelledby="organization's name" required)
+  {{> inputAddress }}
+  {{> inputPhone }}
+  div(class="row")
+    div(class="column")
+      label(for='additionalInfo')
+        i(class="fa fa-ellipsis-h" aria-hidden="true")
+        | Additional information
+      textarea(placeholder="e.g: Description, accessibility"  name="additionalInfo" aria-labelledby="additional information") 

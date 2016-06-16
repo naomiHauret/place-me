@@ -1,0 +1,11 @@
+template(name="trustList")
+  div(class="row")
+    label(for="trustEstablishment")
+      i(class="fa fa-hospital-o fa-fw" aria-hidden="true")
+      | Trust establishment
+    br
+    select( class="trustSelect" aria-labelledby="list of establishments" name="trustEstablishment" required)
+      option(disabled selected value="") -- Type or select a trust organization --
+      each trustOrganization
+        option(value="{{ _id }}" data-id="{{ _id }}") {{ name }} ({{ address.city }})
+    

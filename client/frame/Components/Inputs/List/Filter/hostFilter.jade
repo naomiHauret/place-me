@@ -1,0 +1,10 @@
+template(name="hostFilter")
+  div(class="column")
+    label(for="hostEstablishment") 
+      i(class="fa fa-hospital-o fa-fw" aria-hidden="true")
+      | Host organization
+    br
+    select( class="hostSelect" aria-labelledby="list of establishments" name="hostEstablishment" )
+      option(selected value="educator") All host
+      each hostOrganization
+        option(value="{{ _id }}" data-id="{{ _id }}") {{ name }} ({{ address.city }})

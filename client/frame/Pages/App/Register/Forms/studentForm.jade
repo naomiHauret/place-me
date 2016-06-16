@@ -1,0 +1,15 @@
+template(name="studentForm")
+  {{> accountInputs }}
+  {{> inputPersonalData }}
+  {{> inputBirthday }}
+  {{> inputPhone }}
+  div(class="row")
+    span
+      input(type="checkbox" name="differentAddresses")
+      | Check if your permanent (home) and term (school) addresses are different
+  h4 Permanent address
+  {{> inputPermanentAddress }}
+  h4 Term address (address during your studies)
+  {{> inputTermAddress }}
+  {{> cohortList }}
+  {{> programmeList }}

@@ -1,0 +1,30 @@
+//////////////////////////////////////////////////////
+//////// BODY
+/////////////////////////////////////////////////////
+*{
+  box-sizing:border-box;
+}
+
+body{
+  display:flex;
+  flex-direction:column;
+  margin:auto 0;
+  height:100%;
+  height:100vh;
+  font-family: $text, "Segoe UI", "Roboto","Arial";
+}
+h1, h2, h3, h4, h5{
+  font-family: $text, "Segoe UI", "Roboto","Arial";
+
+}
+
+.pusher{
+  overflow:hidden;
+}
+.fa{
+  font-family:"FontAwesome";
+}
+
+.center{
+  text-align:center;
+}

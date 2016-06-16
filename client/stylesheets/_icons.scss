@@ -1,0 +1,27 @@
+//////////////////////////////////////////////////////
+//////// ICONS
+/////////////////////////////////////////////////////
+.icon:after{
+  font-family:"FontAwesome";
+}
+
+.iconAction-edit:after{
+    content: "\f040";
+}
+
+.iconAction-book:after{
+    content: "\f02d";
+}
+.iconAction-activity:after{
+    content: "\f1da";
+}
+._title-iconBrowse:before{
+  content:'\f002';
+}
+._title-iconAdd:before{
+  content:'\f067';
+}
+
+._title-iconUpdate:before{
+  content:'\f093';
+}

@@ -1,0 +1,6 @@
+template(name="appToolbar")
+  div( class="tools")
+    a(class="tool" href="{{ pathFor 'home' }}" title="Go to home page") Home
+    if currentUser
+      a(class="tool" name="logout" title="Logout") Logout
+    

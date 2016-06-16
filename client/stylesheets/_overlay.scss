@@ -1,0 +1,40 @@
+.overlay{
+  z-index:999;
+   min-height: 100vh;
+   background-color: rgba(67, 198, 113,0.95);
+   display:flex;
+   flex-direction:column;
+   color: white;
+   .row {
+   	width:100%;
+   	flex:1;
+   	display:flex;
+   	flex-direction:column;
+   	justify-content:center;
+   }
+
+   .row:hover{
+   	background:$primary-green;
+   }
+
+    .overlay-close {
+      font-size:55px;
+      overflow-y: auto;
+      z-index: 1000;
+      transition:0.4s;
+      color: white;
+      text-align:center;
+    }
+
+    .overlay-close:after{
+    	display:block;
+    	content: "Close menu";
+    	font-family:"Source sans pro";
+    	font-size:15px;
+
+    }
+
+    .overlay-close:hover, .overlay-close:focus{
+      color: $darkest-green;
+    }
+}

@@ -1,0 +1,79 @@
+template(name="contentUsers")
+  +contentFor("floatingButtons")
+    button(class="floating-button" type="button" value="uploadUsers")
+      i( class="fa fa-upload " aria-hidden="true")
+      i(class="fa fa-ellipsis-h fa-small" aria-hidden="true")
+  form(class="form_search-quick")
+    h2 Browse users  
+    div(class="row row_filter")
+      {{> usersStatusFilter }}
+    h4 Search
+    div(class="_input")
+      {{> EasySearch.Input index=index attributes=inputAttributes }}
+    +EasySearch.IfInputEmpty index=index
+      div(class="_input-example") 
+        p You can browse users by their first name, last name, e-mail address and phone number
+    else
+      if resultsCount
+        div(class="padded count-results") {{resultsCount}} results found.
+    div(class="row")
+      unless hideFilterTitle
+        h4 Filter by
+    div(class="row row_subfilter")
+      {{> authorizedFilter }}
+      if filterStudents
+        {{> cohortFilter }}
+        {{> programmeFilter }}
+        {{> placementStatusFilter }}
+      if filterCoordinators
+        {{> trustFilter }}
+      if filterEducators
+        {{> hostFilter }}
+    +EasySearch.IfSearching index=index
+      p Searching...  
+    div(class="row")
+      div(class='column')
+        h4 Results: {{resultsCount}} 
+      div(class="column")
+        p {{> yield "contentIndications" }}
+    ul(class="list_result")
+      li(class="list_result-item list_result-header")
+        div(class="result")
+          div(class="row row_main")
+            span(class="column")
+              b Name 
+            span(class="column")
+              b Status
+            span(class="column") 
+              b E-mail 
+            span(class="column")
+              b Phone 
+      +EasySearch.Each index=index
+        a(href="/app/profile/{{_id}}" title="See profile")
+          li(class="list_result-item")
+            div(class="result")
+              div(class="row row_main")
+                span(class="column") {{ profile.firstName }} {{ profile.lastName }}
+                span(class="column") {{ status }}
+                span(class="column") {{ email }}
+                span(class="column") {{ profile.phone }}
+        unless profileCurrentUser 
+          if isInRole "tutor"
+            div(class="row row_aside") 
+              if authorized
+                button(value="{{_id}}" class="column result_button restrict" type="button" title="Restrict access" name="restrict")
+                  span
+                    span(class="icon iconAction-restrict")
+                    | Restrict access
+              else
+                button(value="{{_id}}" class="column result_button giveAccess " type="button" title="Give back access" name="giveAccess")
+                  span
+                    span(class="icon iconAction-giveAccess")
+                    | Authorize access
+              button(value="{{_id}}" title="delete user" type="button" class="column result_button delete " name="delete")
+                span
+                  span(class="icon iconAction-delete")
+                  | Delete
+    {{ > EasySearch.LoadMore index=index attributes=buttonAttributes }}
+    +EasySearch.IfNoResults index=index
+      p There are no users corresponding to these criteria. 

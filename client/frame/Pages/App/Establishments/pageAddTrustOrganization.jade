@@ -1,0 +1,26 @@
+template(name="breadcrumbAddTrust")
+  li(class="crumb") Establishments
+  li(class="crumb") Add
+  li(class="crumb active") Trust
+  
+template(name="contentIndicationsAddTrust")
+  | To add a new trust organization please fill the form below.
+  | Note that unless mentioned, all fields are required.
+  
+template(name="contentAddTrust")
+  div(class="content_form")
+    form(name="addTrustForm")
+      {{> organizationName }}
+      {{> inputAddress }}
+      {{> inputPhone }}
+      {{> textareaAdditionalInformation }}
+      div(class="row")
+        unless adding  
+          button(type="submit")
+            i(class="fa fa-plus" aria-hidden='true')
+            | Add a new trust organization
+        else
+          div(class="column center")
+            p
+              i(class="fa fa-spinner fa-spin fa-2x" aria-hidden="true")
+              | We're adding this new trust organization, please wait...

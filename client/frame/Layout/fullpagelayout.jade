@@ -1,0 +1,14 @@
+template(name="fullpagelayout")
+  div(class="wrapper")  
+    div(class="bg-pic")
+      div(class="overlay")
+        div(class="center")
+          div(class="logo")
+            span Place 
+              i(class="fa fa-map-marker fa-fw" aria-hidden="true")
+              | Me
+          h2 {{> yield "title" }}
+          p {{> yield "description" }}
+          {{> yield }}
+        footer
+          {{> footer }}

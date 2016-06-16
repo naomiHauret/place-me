@@ -1,0 +1,9 @@
+template(name="accommodationFilter")
+  div(class="column")
+    label(for="accommodation")
+      i(class="fa fa-bed " aria-hidden="true")
+      | Accommodation
+    select( aria-labelledby="accommodation" name="accommodation" )
+      option(selected value="all") All 
+      option(value="true") Provided
+      option(value="false") Not provided

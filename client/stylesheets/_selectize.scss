@@ -1,0 +1,53 @@
+.select2-container .select2-choice abbr {
+    background: none;
+    cursor: pointer;
+}
+.select2-search-choice-close {
+    background: none;
+}
+
+
+.select2-search input{
+    font-family: $textBold;
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background:none;
+    background: $lighter-white;
+    border:solid 1px $darker-white;
+    color:$lighter-purple;
+}
+
+.select2-drop {
+    color: rgb(150,150,150);
+}
+
+.select2-container .select2-choice > .select2-chosen{
+  color: rgb(150,150,150);
+  width: 100%;
+  background:rgb(243,243,243);
+}
+
+.select2-drop-active {
+    border:none;
+}
+
+.select2-container .select2-choice {
+    border:none;
+    background: none;
+    filter: none;
+}
+
+
+.select2-container-multi .select2-choices {
+    height: auto !important;
+    height: 1%;
+    margin: 0;
+    padding: 0 5px 0 0;
+    position: relative;
+    border: none;
+    cursor: text;
+    overflow: hidden;
+    background: none;
+    background: rgb(243,243,243);
+}

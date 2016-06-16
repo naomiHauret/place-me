@@ -1,0 +1,10 @@
+template(name="trustFilter")
+  div(class="column")
+    label(for="trustEstablishment") 
+      i(class="fa fa-hospital-o fa-fw" aria-hidden="true")
+      | Trust organization
+    br
+    select( class="trustSelect" aria-labelledby="list of establishments" name="trustEstablishment" )
+      option(selected value="coordinator") All trust
+      each trustOrganization
+        option(value="{{ _id }}" data-id="{{ _id }}") {{ name }} ({{ address.city }})

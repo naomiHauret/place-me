@@ -1,0 +1,19 @@
+template(name="inputAddress")
+  div(class="row")
+    div(class="column")
+      label(for="streetAddress")
+        i(class="fa fa-home" aria-hidden="true")
+        | Address, line 1
+      input(type="text" placeholder="e.g: 12 Grimmauld Place" aria-labelledby="street address" name="streetAddress" class="required" required) 
+  div(class="row")
+    div(class="column")
+      label(for="streetAddress2") Address, line 2 (optional)
+      input(type="text" aria-labelledby="street address" name="streetAddress2" )     
+  div(class="row")
+    div(class="column")
+      label(for="city") City
+      input(type="text" placeholder="e.g: London" aria-labelledby="city" name="city" class="required" required) 
+  div(class="row")
+    div(class="column")
+      label(for="zipcode") Postcode
+      input(type="text" placeholder="e.g:  SE171AH" aria-labelledby="zip" name="zipcode" class="required" required) 

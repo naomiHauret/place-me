@@ -1,0 +1,11 @@
+//////////////////////////////////////////////////////
+//////// Progress bar
+/////////////////////////////////////////////////////
+#iron-router-progress {
+    background-color : $lighter-purple;
+    box-shadow: 0 0 5px $primary-purple;
+}
+
+#iron-router-progress.spinner:before {
+    border-color : $lighter-purple;
+}

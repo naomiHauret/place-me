@@ -1,0 +1,121 @@
+//////////////////////////////////////////////////////
+//////// SIDEBAR
+/////////////////////////////////////////////////////
+.ui.visible.uncover.sidebar {
+  background: white;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  button[name="closeSidebar"]{
+  color: $darkest-white;
+  font-weight:bold;
+  text-align: right;
+
+
+   div{
+    display:flex;
+    flex-direction:column;
+    justify-content: flex-end;
+
+  }
+
+  }
+  .result{
+    .row_main{
+      text-align:center;
+      flex-direction: column;
+    }
+  }
+
+  .list_result{
+    display:flex;
+    flex:1;
+    flex-direction:column;
+
+    a, a:hover{
+      text-decoration:none;
+    }
+  }
+  .list_result-item:hover, button:focus, .list_result-item:active{
+    background:rgb(240,243,250);
+  }
+  .list_result-item:hover, button:focus, .list_result-item:active{
+    background:rgb(240,243,250);
+  }
+  .list_result-header, .list_result-header:hover{
+    background:rgb(67,198,113);
+    color:white;
+  }
+
+  .list_result-item{
+    border-top: rgb(232,233,248) solid 1px;
+    padding-top:10px;
+    padding-bottom:10px;
+    flex:1;
+
+    .result{
+      padding:5px;
+      flex-direction:column;
+      .row{
+
+        .column{
+          flex:1;
+        }
+        .badge{
+          color:white
+        }
+      }
+
+      .row_aside{
+        font-size:12.5px;
+        margin-top:8px;
+        justify-content: flex-end;
+        margin-left:auto;
+        .icon:after{
+          font-family:"FontAwesome";
+          font-style:initial;
+          padding-right:5px;
+          font-size:15px
+        }
+
+        .column{
+          background:none;
+          border:none;
+          margin:auto;
+          color: $darker-steel;
+          font-family: $text;
+          font-style:italic;
+          padding-top:10px;
+          padding-bottom:10px;
+          margin-right:8px;
+          margin-left:8px;
+          text-align:right;
+          flex:1;
+          transition:0.3s;
+        }
+        .column:hover, .column:focus{
+          background:$lighter-white;
+        }
+
+        .column:focus{
+          color: $primary-purple;
+          font-size:18px;
+        }
+        .column:hover{
+          font-size:15px;
+        }
+
+      }
+    }
+  }
+}
+.ui.left.sidebar[class*="very wide"], .ui.right.sidebar[class*="very wide"] {
+    width: 40vw;
+}
+
+.ui.visible.right.sidebar[class*="very wide"] ~ .fixed, .ui.visible.right.sidebar[class*="very wide"] ~ .pusher {
+    -webkit-transform: translate3d(-40vw, 0, 0);
+    transform: translate3d(-40vw, 0, 0);
+}

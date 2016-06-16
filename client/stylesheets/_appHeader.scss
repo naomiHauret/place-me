@@ -1,0 +1,222 @@
+//////////////////////////////////////////////////////
+//////// App  header
+/////////////////////////////////////////////////////
+.appHeader{
+  height:70px;
+  position: relative;
+  z-index: 10;
+
+  .row_logo{
+    background: $primary-green;
+;
+    color:white;
+  }
+
+  .row_toolbar{
+    background:$lightest-white;
+    display:flex;
+    justify-content:flex-end;
+    flex:1;
+    //border-bottom: solid $lighter-white 4px;
+  }
+
+  .column{
+    display:flex;
+    flex-direction:column;
+    height:100%;
+  }
+
+  .tools{
+    height:100%;
+    display:flex;
+    flex:1;
+    justify-content:flex-end;
+  }
+
+  .tool{
+    cursor:pointer;
+    transition:0.4s;
+  }
+
+  a, a:visited{
+    color: $darkest-white;
+    text-decoration:none;
+  }
+
+  a:hover, .appHeader a:focus {
+    color:$primary-purple;
+  }
+
+  a:active{
+    color:red;
+  }
+
+  .logo{
+    margin:auto;
+    font-family: $logo;
+    font-size:1.6em;
+  }
+}
+
+
+
+/* ****************************************
+HORIZONTAL SCREEN
+******************************************/
+@media screen and (min-width: 640px){
+  .appHeader{
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    display:flex;
+
+    .row{
+      margin-right:0;
+      margin-left:0;
+
+    }
+
+    .row_logo{
+    }
+    .column_iconAction{
+      display:none;
+    }
+
+    .row_toolbar-largeScreen{
+      display:initial;
+    }
+
+    .tool{
+      margin-top:auto;
+      margin-bottom:auto;
+      padding:3px;
+      margin-right:45px;
+      margin-left:45px;
+    }
+
+    .row_toolbar-mobile{
+      display:none;
+    }
+  }
+}
+/* ****************************************
+DESKTOP
+******************************************/
+@media screen and (min-width:1000px){
+  .appHeader{
+    .row_logo{
+      width:150px;
+    }
+
+    .logo:before{
+      content:"Place "
+    }
+
+    .logo:after{
+      content:" Me"
+    }
+  }
+}
+/* ****************************************
+SMALLER SCREEN
+******************************************/
+@media screen and (max-width:1000px){
+  .appHeader{
+    .logo:before{
+      content:"P ";
+    }
+
+    .logo:after{
+      content:"";
+    }
+  }
+}
+/* ****************************************
+TABLETS
+******************************************/
+@media screen and (max-width:1000px) and (min-width:640px){
+  .appHeader{
+    .row_logo{
+      width:85px;
+    }
+  }
+}
+
+/* ****************************************
+MOBILE
+******************************************/
+
+@media screen and (max-width:640px){
+  .appHeader{
+    display:flex;
+    flex-direction:column;
+
+    .row{
+      display:flex;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
+    }
+
+    .row_logo{
+      justify-content:space-between;
+    }
+
+    .row_toolbar-largeScreen{
+      display:none;
+    }
+
+    .row_toolbar-mobile{
+      display:initial;
+    }
+
+    .column_button{
+      height:inherit;
+    }
+
+    button.column_button{
+      background:none;
+      border:none;
+      font-weight:600;
+      color: $darkest-green;
+      font-size:12px;
+      padding:8px;
+      transition:0.4s;
+    }
+
+    button.column_button:hover{
+      background: $lightest-green;
+    }
+
+    .icon{
+      display:flex;
+      flex-direction:column;
+      text-align:center;
+      font-family:'FontAwesome';
+      font-size:14px;
+      font-weight:initial;
+    }
+
+    .tool{
+      margin:auto;
+    }
+    .column_iconAction-menu {
+      .showIcon:before{
+        content:"\f0c9";
+      }
+    }
+
+    .column_iconAction-toolbar{
+      .showIcon:before{
+        content:"\f141";
+      }
+    }
+
+    .column_iconAction-toolbar {
+      .hideIcon:before{
+        content:"\f077 ";
+      }
+    }
+
+    .column_iconAction{
+      display:initial;
+    }
+  }
+}

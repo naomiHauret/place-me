@@ -1,0 +1,11 @@
+template(name="themetypesCloud")
+  div(class="row")
+    div(class="column")
+      label(for="themetypesCloud")
+        i(class="fa fa-tags" aria-hidden="true")
+        | Themetypes
+      select(class="themetypesCloud"  aria-labelledby="list of themetypes" name="themetypesCloud" multiple="multiple" required)
+        option(disabled selected value="") -- select or type themetypes --
+        each themetype
+          option(value="{{ _id }}" data-id="{{ _id }}") {{ name }}
+      p (You can delete a tag with [DEL] key)    

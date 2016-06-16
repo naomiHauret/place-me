@@ -1,0 +1,11 @@
+template(name="inputPersonalData")
+  div(class="row")
+    div(class="column")
+      label(for="firstName")
+        i(class="fa fa-user" aria-hidden="true")
+        | First name
+      input(type="text" placeholder="e.g: John" name="firstName" class="required" required)
+  div(class="row")
+    div(class="column")
+      label(for="lastName") Last name
+      input(type="text" placeholder="e.g: Doe" name="lastName" class="required" required)

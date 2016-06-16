@@ -1,0 +1,9 @@
+template(name="authorizedFilter")
+  div(class="column")
+    label(for="authorization")
+      i(class="fa fa-unlock-alt " aria-hidden="true")
+      | Authorization
+    select( aria-labelledby="authorization" name="authorization" )
+      option(selected value="registered") All users
+      option(value="true") Authorized users
+      option(value="false") Blocked users 

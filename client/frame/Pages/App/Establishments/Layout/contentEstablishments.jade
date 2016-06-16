@@ -1,0 +1,65 @@
+template(name="contentEstablishments")
+  +contentFor("floatingButtons")
+    button(class="floating-button" type="button" name="uploadEstablishments")
+      i( class="fa fa-upload ")
+      i(class="fa fa-ellipsis-h fa-small")
+  form(class="form_search-quick")
+    h2 Browse establishments
+    div(class="row row_filter")
+      {{> establishmentFilter }}
+    h4 Search
+    div(class="_input")
+      {{> EasySearch.Input index=index attributes=inputAttributes }}
+    +EasySearch.IfInputEmpty index=index
+      div(class="_input-example") 
+        p You can browse establishments by their name, address and phone number
+    else
+      if resultsCount
+        div(class="padded count-results") {{resultsCount}} results found.
+    div(class="row")
+      unless filterHosts
+        h4 Filter by
+    div(class="row row_subfilter")
+      if filterHosts
+        {{> trustFilter }}
+      if filterTrusts
+        {{> hostFilter }}
+      
+    +EasySearch.IfSearching index=index
+      p Searching...
+    div(class="row")
+      div(class='column')
+        h4 Results: {{resultsCount}} 
+      div(class="column")
+        p {{> yield "contentIndications" }}
+    ul(class="list_result")
+      li(class="list_result-item list_result-header")
+        div(class="result")
+          div(class="row row_main")
+            span(class="column")
+              b Name
+            span(class="column")
+              b Type
+            span(class="column")
+              b Phone
+            span(class="column")
+              b Address
+      +EasySearch.Each index=index
+        div(class="list_result-row")
+          a(href="/app/establishments/{{_id}}" title="See the establishment details")
+            li(class="list_result-item")
+              div(class="result")
+                div(class="row row_main")
+                  span(class="column") {{ name }}
+                  span(class="column") {{ type }}
+                  span(class="column") {{ phone }}
+                  span(class="column") {{ address.formattedAddress }} 
+          if isInRole "tutor"
+            div(class="row row_aside") 
+              button(value="{{_id}}" title="delete establishment" type="button" class="column result_button delete" name="delete")
+                span
+                  span(class="icon iconAction-delete")
+                  | Delete
+    {{ > EasySearch.LoadMore index=index attributes=buttonAttributes }}
+    +EasySearch.IfNoResults index=index
+      p There are no establishments corresponding to these criteria. 

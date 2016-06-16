@@ -1,0 +1,25 @@
+//////////////////////////////////////////////////////
+//////// BREADCRUMB
+/////////////////////////////////////////////////////
+
+.breadcrumb {
+  background:none;
+  display: flex;
+  flex-flow: row wrap;
+  .crumb {
+    display: flex;
+    flex-flow:row wrap;
+    color:$primary-grey;
+  }
+
+  .crumb+.crumb:before {
+    font-family: "FontAwesome";
+    content: "\f101";
+    color:$lighter-grey;
+  }
+
+  .crumb.active{
+    color:$darkest-grey;
+  }
+
+}

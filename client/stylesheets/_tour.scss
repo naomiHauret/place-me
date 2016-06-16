@@ -1,0 +1,19 @@
+//////////////////////////////////////////////////////
+//////// Tour
+/////////////////////////////////////////////////////
+.popover{
+  font-family: $text;
+  border:none;
+}
+
+.popover .popover-title{
+  font-weight:600;
+  font-size:18px;
+  width:100%;
+  background: $primary-purple;
+  color:white;
+}
+
+.popover .popover-content{
+  font-size:14px;
+}

@@ -1,0 +1,20 @@
+template(name="loginForm")
+  form(name="login")
+    {{> inputEmail }}
+    {{> inputPassword }}
+    div(class="row")
+      div(class="column")
+        a(href="{{ pathFor 'password-forgotten' }}" title="Password forgotten") Password forgotten
+    div(class="row")
+      unless login
+        button(type="submit" aria-labelledby="login button")
+          i(class="fa fa-sign-in fa-fw" aria-hidden="true") 
+          | Sign in 
+      else
+        div(class="column center")
+          i(class="fa fa-spin fa-refresh fa-2x")
+          p We're logging you in, please wait...
+    div(class="row center row_noAccount")
+      span No account?
+        a(href="{{ pathFor 'register' }}" title="register") Register now.
+      

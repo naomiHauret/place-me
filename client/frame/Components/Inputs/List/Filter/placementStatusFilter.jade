@@ -1,0 +1,10 @@
+template(name="placementStatusFilter")
+  div(class="column")
+    label(for="placementFilter") 
+      i(class="fa fa-map-marker fa-fw" aria-hidden="true")
+      | Placed?
+    br
+    select( aria-labelledby="placement filter" name="placementFilter" )
+      option(selected value="student") All students
+      option(value="true") Placed
+      option(value="false") Not placed

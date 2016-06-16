@@ -1,0 +1,66 @@
+//////////////////////////////////////////////////////
+//////// LOADER
+/////////////////////////////////////////////////////
+$pic: "https://i.ytimg.com/vi/faJiS0-RE98/maxresdefault.jpg";
+
+.bg-pic{
+  background:url($pic) center center fixed;
+  background-size:cover;
+}
+
+.loader{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  text-align:center;
+  width:100%;
+  color:white;
+
+  .overlay{
+    display:flex;
+    background:rgba(2,20,10,0.65);
+    flex:1;
+
+    .center{
+      margin:auto;
+      display:flex;
+      flex-direction:column;
+
+      .logo{
+        font-family:"Pacifico";
+        font-size:15vw;
+        font-weight:initial;
+        width:100%;
+        flex:1;
+      }
+
+      .iconSpinner{
+        font-size:12vw;
+      }
+
+      p{
+        font-style:italic;
+      }
+    }
+  }
+}
+
+.loader{
+  display:flex;
+  padding:30px;
+  text-align:center;
+  font-size:16px;
+  color: rgb(110,59,210);
+  .center{
+    margin:auto;
+  }
+  .iconSpinner{
+    font-size:40px;
+    margin-top:20px;
+    margin-bottom:20px;
+  }
+  .logo{
+    font-family: "Pacifico";
+    font-size:45px
+  }
+}

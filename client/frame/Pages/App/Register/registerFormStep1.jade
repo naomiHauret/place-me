@@ -1,0 +1,14 @@
+template(name="registerFormStep1")
+  h3 Step 1/2 Access register
+  p In order to access register form, please fill all the fields below.
+  p You were given a register key by one of the tutors.
+  {{> inputEmail }}
+  {{> selectStatus }}
+  {{> inputKey }}
+  div(class="row")
+    div(class="column") 
+      label
+        i(class="fa fa-cog" aria-hidden="true")
+        | Confirm you are not a robot below
+      div(class="center")
+        {{> reCAPTCHA }}

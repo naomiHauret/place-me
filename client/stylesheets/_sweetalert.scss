@@ -1,0 +1,16 @@
+//////////////////////////////////////////////////////
+//////// Sweet alert
+/////////////////////////////////////////////////////
+.sweet-alert {
+  font-family: $text;
+  h2{
+    font-family: $textBolder;
+  }
+  button{
+    font-family: $textBold;
+  }
+
+  button:hover, button:focus {
+    background: rgb(152,121,244);
+  }
+}

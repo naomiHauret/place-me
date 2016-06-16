@@ -1,0 +1,254 @@
+//////////////////////////////////////////////////////
+//////// NAV
+/////////////////////////////////////////////////////
+.column_nav-vertical{
+  color:white;
+  transition:1s;
+}
+nav{
+  overflow-x:hidden;
+  .column{
+    text-align:center;
+  }
+  .row{
+    button{
+      background:none;
+      border:none;
+      padding:3px;
+      transition:0.4s;
+      font-family: $textBolder;
+    }
+    button:hover{
+      background:white;
+      color: $darkest-purple;
+    }
+    a{
+      transition:0.4s;
+    }
+    a, a:visited{
+      text-decoration:none;
+      color:white;
+    }
+  }
+
+  .icon{
+    font-family:"FontAwesome";
+    font-weight:initial;
+    color: $darkest-green;
+  }
+  .column_iconAction-dashboard {
+    .icon:before{
+      content:"\f0e4";
+    }
+  }
+  .column_iconAction-profile{
+    .icon:before{
+      content:"\f007 ";
+    }
+  }
+
+  .column_iconAction-placements{
+    .icon:before{
+      content:"\f041 ";
+    }
+  }
+
+  .column_iconAction-visits{
+    .icon:before{
+      content:"\f073 ";
+    }
+  }
+
+  .column_iconAction-offers{
+    .icon:before{
+      content:"\f0b1 ";
+    }
+  }
+
+  .column_iconAction-users{
+    .icon:before{
+      content:"\f0c0 ";
+    }
+  }
+
+  .column_iconAction-establishments{
+    .icon:before{
+      content:"\f0f7 ";
+    }
+  }
+
+  .column_iconAction-messages{
+    .icon:before{
+      content:"\f0e6 ";
+    }
+  }
+
+  .column_iconAction-docs{
+    .icon:before{
+      content:"\f15b ";
+    }
+  }
+
+  .column_iconAction-activity{
+    .icon:before{
+      content:"\f1da";
+    }
+  }
+
+  .column_iconAction-database{
+    .icon:before{
+      content:"\f1c0";
+    }
+  }
+}
+
+/* ****************************************
+HORIZONTAL SCREEN
+******************************************/
+@media screen and (min-width:640px){
+  .wrap {
+    .column_nav-vertical{
+      display:flex;
+      flex-direction:column;
+      background: $primary-green;
+
+    }
+  }
+
+  .nav_horizontal{
+    display:none;
+  }
+
+  nav{
+    ul{
+      flex:1;
+      padding-bottom:15px;
+    }
+    .row{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      justify-content:flex-start;
+
+      button{
+        padding-top:18px;
+        padding-bottom:18px;
+        color:white;
+        border-top:solid 1px $darker-green;
+        flex:1;
+      }
+
+      a:focus{
+        border-left:solid 12px $lighter-purple;
+      }
+    }
+
+    .column_button{
+      span{
+        display:flex;
+        flex-direction:column;
+      }
+    }
+  }
+}
+/* ****************************************
+DESKTOP
+******************************************/
+@media screen and (min-width:1000px){
+  .wrap {
+    .column_nav-vertical{
+      width:150px;
+    }
+  }
+  nav {
+
+
+    .row{
+      justify-content:space-around;
+
+      button{
+        display:flex;
+        flex-direction:column;
+        font-size:16px;
+      }
+    }
+    .icon{
+      font-size:18px;
+      display:inline;
+    }
+  }
+
+}
+/* ****************************************
+TABLET
+******************************************/
+@media screen and (max-width:1000px) and (min-width:640px){
+  .wrap{
+    .column_nav-vertical{
+      width:85px;
+    }
+  }
+  nav{
+    .icon{
+      font-size:14px;
+    }
+    .column_button{
+      span{
+        display:flex;
+        flex-direction:column;
+      }
+    }
+    .row{
+      flex:1;
+
+      button{
+        font-size:11px;
+      }
+    }
+  }
+}
+/* ****************************************
+MOBILE
+******************************************/
+@media screen and (max-width:640px){
+  .wrap{
+    .column_nav-vertical{
+      display:none;
+    }
+  }
+
+  nav{
+    height:100%;
+    width:100%;
+    display:flex;
+    .column{
+      height:100%;
+      flex:1;
+    }
+    .row_toolbar{
+      padding-top:15px;
+      padding-bottom:15px;
+    }
+    .row{
+      display:flex;
+      flex-flow: row wrap;
+      justify-content:center;
+      flex:1;
+      a.column{
+        flex:1;
+        //border-left:solid 1px $primary-green;
+        //border-bottom:solid 1px $primary-green;
+      }
+
+      button{
+        width:100%;
+        flex:1;
+        padding-left:13px;
+        padding-right:13px;
+        padding-top:8px;
+        padding-bottom:8px;
+        font-size:18px;
+      }
+    }
+  }
+}

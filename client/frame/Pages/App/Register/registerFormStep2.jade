@@ -1,0 +1,11 @@
+template(name="registerFormStep2")
+  h3 Step 2/2 Register
+  p Please note that unless mentioned, all fields are required.
+  if student
+    {{> studentForm }}
+  if tutor
+    {{> tutorForm }}
+  if educator
+    {{> educatorForm }}
+  if coordinator
+    {{> coordinatorForm }}
