@@ -41,7 +41,7 @@
 * *reactive-var* : Reactive variable
 * *session* : Session variable
 
-##### Stylesheets
+#### Stylesheets
 * *fourseven:scss* : Sass and SCSS support (with autoprefixer and sourcemaps)
 * *httpstr:normalize.scss* : style normalization
 
