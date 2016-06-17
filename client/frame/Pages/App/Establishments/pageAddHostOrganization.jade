@@ -4,10 +4,12 @@ template(name="breadcrumbAddHost")
   li(class="crumb active") Host
   
 template(name="contentIndicationsAddHost")
-  | To add a new host organization please fill the form below.
-  | Note that unless mentioned, all fields are required.
+  h2 Add a new host organization
+  p To add a new host organization please fill the form below.
+  p Note that unless mentioned, all fields are required.
   
 template(name="contentAddHost")
+  {{> yield "contentIndications" }}
   div(class="content_form")
     form(name="addHostForm")
       {{> organizationName }}
@@ -26,4 +28,48 @@ template(name="contentAddHost")
             p
               i(class="fa fa-spinner fa-spin fa-2x" aria-hidden="true")
               | We're adding this new host organization, please wait...
+  +contentFor("floatingButtons")
+    if isInRole "tutor"
+      button(class="floating-button" type="button" name="quickAddTrust" title="add a new trust organization")
+        i( class="fa fa-building-o ")
+        i(class="fa fa-plus-h fa-small")
+      button(class="floating-button" type="button" name="quickAddThemetypes" title="add a new themetype")
+        i( class="fa fa-tags ")
+        i(class="fa fa-plus-h fa-small")
+  +contentFor("sidebar")
+    if quickAddTrust
+      h2 Add a new trust organization
+      form(id="quickAddTrust" name="sidebarForm")
+        {{> organizationName }}
+        {{> inputAddress }}
+        {{> inputPhone }}
+        {{> textareaAdditionalInformation }}
+        div(class="row")
+          unless adding  
+            button(type="submit")
+              i(class="fa fa-plus" aria-hidden='true')
+              | Add a new trust organization
+          else
+            div(class="column center")
+              p
+                i(class="fa fa-spinner fa-spin fa-2x" aria-hidden="true")
+                | We're adding this new trust organization, please wait...
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+      if quickAddThemetypes
+        h2 Add a new themetype
+        form(id="quickAddThemetypes" name="sidebarForm")
+          {{> themetypeInputs }}
+          div(class="row")
+            unless adding  
+              button(type="submit")
+                i(class="fa fa-plus" aria-hidden='true')
+                | Add a new themetype
+            else
+              div(class="column center")
+                p
+                  i(class="fa fa-spinner fa-spin fa-2x" aria-hidden="true")
+                  | We're adding this new themetype, please wait...
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
             

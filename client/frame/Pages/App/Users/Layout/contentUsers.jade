@@ -60,11 +60,18 @@ template(name="contentUsers")
         unless profileCurrentUser 
           if isInRole "tutor"
             div(class="row row_aside") 
+            
               if authorized
                 button(value="{{_id}}" class="column result_button restrict" type="button" title="Restrict access" name="restrict")
                   span
                     span(class="icon iconAction-restrict")
                     | Restrict access
+                if isStudent
+                  unless isPlaced
+                    button(value="{{_id}}" class="column result_button place" type="button" title="Place student" name="place")
+                      span
+                        span(class="icon iconAction-place")
+                        | Place...
               else
                 button(value="{{_id}}" class="column result_button giveAccess " type="button" title="Give back access" name="giveAccess")
                   span

@@ -9,6 +9,15 @@ Template.contentAddPlacements.helpers({
     return Session.get("selectOffer");
   },
 
+  definedPlacement(){
+    return (Session.get("selectedStudent") !== undefined && ( Session.get("selectedOffer") !== undefined  || Template.instance().createPlacement.get() === true));
+
+  },
+
+  createPlacement(){
+    return Template.instance().createPlacement.get();
+  },
+
   buttonAttributes: function(){
     return {'type': 'button', 'content': "Load more..."}
   },
@@ -74,7 +83,7 @@ Template.contentAddPlacements.helpers({
   },
 
 
-  hostOrganization(){
+  offerHostOrganization(){
     let offerId= Session.get("selectedOffer");
     let hostId= Offers.findOne({_id: offerId}).hostOrganizationId;
     return Establishments.findOne({_id: hostId}).name;
@@ -109,7 +118,7 @@ Template.contentAddPlacements.helpers({
     return Meteor.users.find({ "roles": "registered", $and: [{"roles": "educator"}, {"profile.isAuthorized": true}, {"profile.hostOrganizationId": hostId} ]});
   },
 
-  themetypes(){
+  offerThemetypes(){
     let offerId= Session.get("selectedOffer");
     let themetypes ="";
     let themetypesIdArray= Offers.findOne({_id: offerId }).themeTypesId;
@@ -122,5 +131,16 @@ Template.contentAddPlacements.helpers({
 
   displayPlacementDetails(){
     return Session.get("selectedOffer") !== undefined && Session.get("selectedStudent") !== undefined;
+  },
+
+  quickAddTheme(){
+    return Session.get("quickAddTheme");
+  },
+
+  quickAddEducator(){
+    return Session.get("quickAddEducator");
+  },
+  quickAddThemetypes(){
+    return Session.get("quickAddThemetypes");
   }
 });

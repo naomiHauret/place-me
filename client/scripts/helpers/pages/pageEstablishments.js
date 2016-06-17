@@ -100,5 +100,13 @@ Template.contentAddTrust.helpers({
 Template.contentAddHost.helpers({
   adding(){
     return Template.instance().adding.get();
-  }
+  },
+
+    quickAddTrust(){
+      return Session.get("quickAddTrust");
+    },
+
+    quickAddThemetypes(){
+      return Session.get("quickAddThemetypes")
+    }
 });

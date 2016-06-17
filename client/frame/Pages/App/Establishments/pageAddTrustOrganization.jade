@@ -4,10 +4,12 @@ template(name="breadcrumbAddTrust")
   li(class="crumb active") Trust
   
 template(name="contentIndicationsAddTrust")
-  | To add a new trust organization please fill the form below.
-  | Note that unless mentioned, all fields are required.
+  h2 Add a new trust organization
+  p To add a new trust organization please fill the form below.
+  p Note that unless mentioned, all fields are required.
   
 template(name="contentAddTrust")
+  {{> yield "contentIndications" }}
   div(class="content_form")
     form(name="addTrustForm")
       {{> organizationName }}

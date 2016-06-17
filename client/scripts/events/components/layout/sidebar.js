@@ -1,6 +1,8 @@
+Template.sidebar.onCreated(function(){
+  Template.instance().adding = new ReactiveVar(false);
+});
 
 Template.sidebar.onDestroyed(function(){
-  console.log("sidebar destroyed yo");
   OffersIndex.getComponentMethods().removeProps('accommodationFilter');
   OffersIndex.getComponentMethods().removeProps('carFilter');
   OffersIndex.getComponentMethods().removeProps('sortBy');
@@ -15,8 +17,15 @@ Template.sidebar.onDestroyed(function(){
   $("form[name='sidebarForm'] input").val("");
   UsersIndex.search("");
   Session.set("selectStudent", undefined);
-
-
+  Session.set('quickAddTrust', undefined);
+  Session.set('quickAddThemetypes', undefined);
+  Session.set('quickAddTheme', undefined);
+  Session.set('quickAddHost', undefined);
+  Session.set('quickUploadUsers', undefined);
+  Session.set('quickUploadEstablishments', undefined);
+  Session.set('quickUploadOffers', undefined);
+  Session.set('quickUploadPlacements', undefined);
+  Session.set('quickUploadVisits', undefined);
 });
 
 Template.sidebar.events({
@@ -26,6 +35,15 @@ Template.sidebar.events({
   'click .closeSidebar': function(e, template){
     e.preventDefault();
     Session.set("selectStudent", undefined);
+    Session.set('quickAddTrust', undefined);
+    Session.set('quickAddThemetypes', undefined);
+    Session.set('quickAddTheme', undefined);
+    Session.set('quickAddHost', undefined);
+    Session.set('quickUploadUsers', undefined);
+    Session.set('quickUploadEstablishments', undefined);
+    Session.set('quickUploadOffers', undefined);
+    Session.set('quickUploadPlacements', undefined);
+    Session.set('quickUploadVisits', undefined);
     $('.ui.sidebar').sidebar('hide');
 
   },

@@ -754,7 +754,7 @@ Template.contentAddEducator.events({
 
                   //alert (user feedback: success)
                   swal({
-                    title: "educator added!",
+                    title: "Educator added!",
                     type: "success",
                     text: "This new educator is <b>added</b> and an e-mail was sent to him or her to initialize the account.<br> Would you like to <b>add another educator</b> ?",
                     html: true,

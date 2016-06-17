@@ -2,6 +2,7 @@ Template.contentEstablishments.onCreated(function(){
   Template.instance().filterHosts = new ReactiveVar(false);
   Template.instance().filterTrusts = new ReactiveVar(false);
 
+
 });
 
 Template.contentEstablishments.onRendered(function(){
@@ -134,6 +135,8 @@ Template.contentAddTrust.onCreated(function(){
 
 Template.contentAddHost.onCreated(function(){
   Template.instance().adding = new ReactiveVar(false);
+  Session.set("quickAddTrust", undefined);
+  Session.set("quickAddThemetypes", undefined);
 });
 
 Template.contentAddHost.events({

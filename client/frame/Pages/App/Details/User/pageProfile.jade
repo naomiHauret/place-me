@@ -35,10 +35,11 @@ template(name="contentProfile")
         span
           span(class="icon iconAction-edit")
           | Edit my profile
-      button(value="{{ user._id }}" class="column seeRecord" title="See placement record..." name="seeRecord")
-        span
-          span(class="icon iconAction-book")
-          | My placements record...
+      unless isInRole 'coordinator'
+        button(value="{{ user._id }}" class="column seeRecord" title="See placement record..." name="seeRecord")
+          span
+            span(class="icon iconAction-book")
+            | My placements record...
       button(value="{{ user._id }}" class="column seeLogin" title="See login history..." name="seeActivity")
         span
           span(class="icon iconAction-activity")
@@ -60,6 +61,12 @@ template(name="contentProfile")
             span(class="icon iconAction-activity")
             | Login history...
         if isAuthorized
+          if isStudent
+            unless isPlaced
+              button(value="{{_id}}" class="column result_button place" type="button" title="Place student" name="place")
+                span
+                  span(class="icon iconAction-place")
+                  | Place...
           button(value="{{ user._id }}" class="column restrict" title="Restrict access" name="restrict")
             span
               span(class="icon iconAction-restrict")

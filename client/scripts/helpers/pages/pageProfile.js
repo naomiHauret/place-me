@@ -48,7 +48,7 @@ Template.contentProfile.helpers({
 
   userPlaced(){
     let placed = "Not placed";
-    if(Meteor.users.findOne({_id: this._id}).isPlaced === true ){
+    if(Meteor.users.findOne({_id: this._id}).profile.isPlaced === true ){
       placed = "Placed";
     }
 
@@ -90,6 +90,6 @@ Template.contentProfile.helpers({
   },
 
   isAuthorized(){
-    return Meteor.users.findOne({_id: this._id}).isAuthorized === true;
+    return Meteor.users.findOne({_id: this._id}).profile.isAuthorized === true;
   }
 });

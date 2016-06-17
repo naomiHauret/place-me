@@ -45,5 +45,11 @@ Template.contentOffers.helpers({
 Template.contentAddOffer.helpers({
   adding(){
     return Template.instance().adding.get();
+  },
+  quickAddHost(){
+    return Session.get("quickAddHost");
+  },
+  quickAddThemetypes(){
+    return Session.get("quickAddThemetypes");
   }
 });

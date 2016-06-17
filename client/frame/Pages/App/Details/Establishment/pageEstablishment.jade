@@ -18,6 +18,7 @@ template(name="contentIndicationsEstablishmentDetails")
     //////////////////////////////////////////////////////////////////////////////////////////////////////////  
 
 template(name="contentEstablishmentDetails")
+  {{> yield "contentIndications"}}
   div(class="row row_actions") 
     button(value="{{ establishment._id }}" class="column " title="See staff list..." name="staff" )
       span
@@ -33,7 +34,6 @@ template(name="contentEstablishmentDetails")
           span(class="icon iconAction-delete")
           | Delete
   form
-    {{> yield "contentIndications" }}
     span(class="separator")
     h4 Usual information
     div(class="row")

@@ -15,8 +15,11 @@ Template.contentIndicationsOfferDetails.helpers({
       status= "filled. There is no more placement available for this offer."
     }
     return status;
+  },
+  publicationDate(){
+    return moment(Offers.findOne({_id: this._id}).createdAt).format("MM/DD/YYYY"); // Eg: Sunday 15th June 2016 at 12:45
   }
-})
+});
 
 Template.contentOfferDetails.helpers({
   offer(){

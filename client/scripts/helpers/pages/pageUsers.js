@@ -66,6 +66,9 @@ Template.usersList.helpers({
   filterCoordinators(){
     return Template.instance().filterCoordinators.get();
   },
+  isPlaced(){
+    return this.profile.isPlaced === true;
+  },
 
   search(){
     let searchInput= $("._input-searchbar").val();
@@ -88,6 +91,20 @@ Template.contentUsers.helpers({
   },
   status(){
     return this.roles[0];
+  },
+
+  isStudent(){
+    return Meteor.users.findOne({_id: this._id}).roles[0] === "student";
+  },
+  isTutor(){
+    return Meteor.users.findOne({_id: this._id}).roles[0] === "tutor";
+  },
+  isCoordinator(){
+    return Meteor.users.findOne({_id: this._id}).roles[0] === "coordinator";
+  },
+
+  isEducator(){
+    return Meteor.users.findOne({_id: this._id}).roles[0] === "educator";
   },
   authorized(){
     return this.profile.isAuthorized === true;
@@ -128,6 +145,10 @@ Template.contentUsers.helpers({
   },
   authorized(){
     return this.profile.isAuthorized === true;
+  },
+
+  isPlaced(){
+    return this.profile.isPlaced === true;
   },
   index: function () {
     return UsersIndex;

@@ -1,11 +1,17 @@
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
 template(name="breadcrumbAddPlacement")
   li(class="crumb") Placements
   li(class="crumb active") Placement offer
-  
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
 template(name="contentIndicationsAddPlacement")
   | To add a new placement please fill the form below.
-  
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////  
 template(name="contentAddPlacements")
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
   +contentFor("floatingButtons")
     button(class="floating-button" type="button" name="quickAddEducator" title="Add an educator...")
       i( class="fa fa-building-o" aria-hidden="true")
@@ -16,118 +22,159 @@ template(name="contentAddPlacements")
     button(class="floating-button" type="button" name="quickAddThemetypes" title="Add a themetype...")
       i( class="fa fa-tags" aria-hidden="true")
       i(class="fa fa-plus fa-small" aria-hidden="true")   
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
   +contentFor("sidebar")
+    if quickAddTheme
+      h2 Add a new theme
+        form(id="quickAddTheme" name="sidebarForm")
+          {{> themeInputs }}
+          div(class="row")
+            unless adding  
+              button(type="submit")
+                i(class="fa fa-plus" aria-hidden='true')
+                | Add a new theme
+            else
+              div(class="column center")
+                p
+                  i(class="fa fa-spinner fa-spin fa-2x" aria-hidden="true")
+                  | We're adding this new theme, please wait...
+    if quickAddThemetypes
+      h2 Add a new themetype
+        form(id="quickAddThemetypes" name="sidebarForm")
+          {{> themetypeInputs }}
+          div(class="row")
+            unless adding  
+              button(type="submit")
+                i(class="fa fa-plus" aria-hidden='true')
+                | Add a new themetype
+            else
+              div(class="column center")
+                p
+                  i(class="fa fa-spinner fa-spin fa-2x" aria-hidden="true")
+                  | We're adding this new themetype, please wait...
+    if selectStudent
+      {{> yield "sidebar_selectStudent"}}
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    if selectOffer
+      {{> yield "sidebar_selectOffer"}}
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  +contentFor("sidebar_selectStudent")
     form(class="form_search-quick" name="sidebarForm")
-      if selectStudent
-        h2 Select a student   
-        h4 Search
-        div(class="_input")
-          {{> EasySearch.Input index=studentsIndex attributes=inputAttributes }}
-        +EasySearch.IfInputEmpty index=studentsIndex
-          div(class="_input-example") 
-            p You can browse students by their first name, last name, e-mail address and phone number
-        else
-          if resultsCountStudents
-            div(class="padded count-results") {{resultsCountStudents}} results found.
-          else
-            p 
-              i(class="fa fa-spin fa-spinner" aria-hidden="true")
-              | Loading...
-        div(class="row")
-          h4 Filter by
-        div(class="row row_subfilter")
-          {{> cohortFilter }}
-          {{> programmeFilter }}
-        +EasySearch.IfSearching index=studentsIndex
-          p Searching...
-        div(class="row")
-          div(class='column')
-            h4 Results: {{resultsCountStudents}} 
-          div(class="column")
-            p Select a student in the list below. 
-        ul(class="list_result")
-          li(class="list_result-item list_result-header")
+      h2 Select a student   
+      h4 Search
+      div(class="_input")
+        {{> EasySearch.Input index=studentsIndex attributes=inputAttributes }}
+      +EasySearch.IfInputEmpty index=studentsIndex
+        div(class="_input-example") 
+          p You can browse students by their first name, last name, e-mail address and phone number
+      else
+        if resultsCountStudents
+          div(class="padded count-results") {{resultsCountStudents}} results found.
+      div(class="row")
+        h4 Filter by
+      div(class="row row_subfilter")
+        {{> cohortFilter }}
+        {{> programmeFilter }}
+      +EasySearch.IfSearching index=studentsIndex
+        p Searching...
+      div(class="row")
+        div(class='column')
+          h4 Results: {{resultsCountStudents}} 
+        div(class="column")
+          p Select a student in the list below. 
+      ul(class="list_result")
+        li(class="list_result-item list_result-header")
+          div(class="result")
+            div(class="row row_main")
+              span(class="column")
+                b Name 
+              span(class="column") 
+                b Cohort 
+              span(class="column")
+                b Programme 
+        +EasySearch.Each index=studentsIndex
+          li(class="list_result-item")
             div(class="result")
               div(class="row row_main")
-                span(class="column")
-                  b Name 
-                span(class="column") 
-                  b Cohort 
-                span(class="column")
-                  b Programme 
-          +EasySearch.Each index=studentsIndex
-            li(class="list_result-item")
-              div(class="result")
-                div(class="row row_main")
-                  span(class="column") {{ profile.firstName }} {{ profile.lastName }}
-                  span(class="column") {{ studentCohort }}
-                  span(class="column") {{ studentProgramme }}
-                div(class="row row_aside")
-                  div(class="column")
-                    span
-                      label(for="{{_id}}")
-                        i(class="fa fa-hand-pointer-o" aria-hidde="true")
-                        | Select  this student
-                        input(type="radio" class="selectStudent" name="studentRadioButton" title="select this student" id='{{_id}}' value='{{_id}}') 
-        {{ > EasySearch.LoadMore index=studentsIndex attributes=buttonAttributes }}
-        +EasySearch.IfNoResults index=studentsIndex
-          p There are no students corresponding to these criteria. 
-      if selectOffer
-        h2 Select an existing placement offer
-        h4 Search  
-        +EasySearch.IfInputEmpty index=offersIndex
-          div(class="_input-example") 
-            div(class="row")
-              h4 Filter by
-            div(class="row row_subfilter")
-              {{> hostFilter }}
-            div(class="row row_subfilter")
-              {{> accommodationFilter }}
-              {{> carFilter }}
-            div(class="row")
-              h4 Order by
-            div(class="row row_subfilter")
-              {{> dateOrder }}
-        +EasySearch.IfSearching index=offersIndex
-          p Searching...
-        div(class="row")
-          div(class='column')
-            h4 Results: {{resultsCountOffers}}
-          div(class="column")
-            p Select an offer placement
-        ul(class="list_result")  
-          li(class="list_result-item list_result-header")
-            div(class="result")
-              div(class="row row_main")
-                span(class="column")
-                  b Reference
-                span(class="column")
-                  b Host organization
-                span(class="column")
-                  b Themetypes
-                span(class="column")
-                  b Date of start
-                span(class="column")
-                  b Date of end
-          +EasySearch.Each index=offersIndex
-            li(class="list_result-item")
-              div(class="result")
-                div(class="row row_main")
-                  span(class="column") {{ _id }}
-                  span(class="column") {{ hostOrganization }}
-                  span(class="column") {{ themetypes }}
-                  span(class="column") {{ startDate }}
-                  span(class="column") {{ endDate }}
-                div(class="row row_aside") 
+                span(class="column") {{ profile.firstName }} {{ profile.lastName }}
+                span(class="column") {{ studentCohort }}
+                span(class="column") {{ studentProgramme }}
+              div(class="row row_aside")
                 div(class="column")
                   span
                     label(for="{{_id}}")
                       i(class="fa fa-hand-pointer-o" aria-hidde="true")
-                      | Select this placement offer
-                      input(type="radio" class="selectOffer" name="offerRadioButton" title="select this placement offer" id='{{_id}}' value='{{_id}}') 
-        {{ > EasySearch.LoadMore index=offersIndex attributes=buttonAttributes }}
-        +EasySearch.IfNoResults index=offersIndex
-          p There are no offers corresponding to these criteria.
+                      | Select  this student
+                      input(type="radio" class="selectStudent" name="studentRadioButton" title="select this student" id='{{_id}}' value='{{_id}}') 
+      {{ > EasySearch.LoadMore index=studentsIndex attributes=buttonAttributes }}
+      +EasySearch.IfNoResults index=studentsIndex
+        p There are no students corresponding to these criteria. 
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  +contentFor("sidebar_selectOffer")
+    form(class="form_search-quick" name="sidebarForm")
+      h2 Select an offer
+      h4 Search
+      div(class="_input")
+        {{> EasySearch.Input index=offersIndex attributes=inputAttributes }}
+      +EasySearch.IfInputEmpty index=offersIndex
+        div(class="_input-example") 
+          p You can browse students by its reference.
+      else
+        if resultsCountStudents
+          div(class="padded count-results") {{resultsCountOffers}} results found.
+      div(class="row")
+        h4 Filter by
+      div(class="row row_subfilter")
+        {{> hostFilter }}
+        {{> accommodationFilter }}
+        {{> carFilter }}
+      div(class="row")
+        h4 Order by
+      +EasySearch.IfSearching index=offersIndex
+        p Searching...
+      div(class="row")
+        div(class='column')
+          h4 Results: {{resultsCountOffers}} 
+        div(class="column")
+          p Select an offer in the list below. 
+      ul(class="list_result")
+        li(class="list_result-item list_result-header")
+          div(class="result")
+            div(class="row row_main")
+              span(class="column")
+                b Reference
+              span(class="column") 
+                b Host organization
+              span(class="column")
+                b Themetypes
+              span(class="column")
+                b Date of start
+              span(class="column")
+                b Date of end
+        +EasySearch.Each index=offersIndex
+          li(class="list_result-item")
+            div(class="result")
+              div(class="row row_main")
+                span(class="column") {{ offer._id }}
+                span(class="column") {{ offerHostOrganization }}
+                span(class="column") {{ offerThemetypes }}
+                span(class="column") {{ offer.startDate }}
+                span(class="column") {{ offer.endDate }}
+              div(class="row row_aside")
+                div(class="column")
+                  span
+                    label(for="{{_id}}")
+                      i(class="fa fa-hand-pointer-o" aria-hidde="true")
+                      | Select this offer
+                      input(type="radio" class="selectOffer" name="offerRadioButton" title="select this offer" id='{{_id}}' value='{{_id}}') 
+      {{ > EasySearch.LoadMore index=offersIndex attributes=buttonAttributes }}
+      +EasySearch.IfNoResults index=offersIndex
+        p There are no offers corresponding to these criteria. 
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
   div(class="content_form")
     form(name="placementForm")
       div(class="inline-row")  
@@ -166,35 +213,35 @@ template(name="contentAddPlacements")
             else
               button(type="button" name="selectStudent")
                 i(class="fa fa-ellipsis-h" aria-hidden="true")
-                | Select a student       
-        fieldset(class="column placementFormStep")
-          legend
-            h4 Placement offer        
-          if selectedOffer
-            button(type="button" name="selectOffer")
-              i(class="fa fa-ellipsis-h" aria-hidden="true")
-              | Select another placement offer
-          else
-            button(type="button" name="selectOffer")
-              i(class="fa fa-ellipsis-h" aria-hidden="true")
-              | Select a placement offer
-            div(class="separator center") 
-              span 
-                b OR
-            div(class="separator")
-            button(type="button" name="createPlacement")
-              i(class="fa fa-magic" aria-hidden="true")
-              | Create a new placement 
-              i ex-nihilo
-        unless definedPlacement
+                | Select a student
+        unless createPlacement       
           fieldset(class="column placementFormStep")
-            legend 
-              h4 Placement details
-            {{> themesList }}
-            {{> inputDates }}
-            {{> provisionCheckboxes }}
-            span Tutors
-            span Educators          
+            legend
+              h4 Placement offer        
+            if selectedOffer
+              button(type="button" name="selectOffer")
+                i(class="fa fa-ellipsis-h" aria-hidden="true")
+                | Select another placement offer
+            else
+              button(type="button" name="selectOffer")
+                i(class="fa fa-ellipsis-h" aria-hidden="true")
+                | Select a placement offer
+              div(class="separator center") 
+                span 
+                  b OR
+              div(class="separator")
+              button(type="button" name="createPlacement")
+                i(class="fa fa-magic" aria-hidden="true")
+                | Create a new placement 
+                i ex-nihilo
+        fieldset(class="column placementFormStep")
+          legend 
+            h4 Placement details
+          {{> themesList }}
+          {{> inputDates }}
+          {{> provisionCheckboxes }}
+          span Tutors
+          span Educators          
       div(class="row")
         unless adding  
           button(type="submit")
