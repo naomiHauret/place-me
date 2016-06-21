@@ -13,6 +13,6 @@ Meteor.methods({
   },
 
   'updateThemetype': function(themetypeData, themetypeId){
-    
+    return "oeoeoe";
   }
 });

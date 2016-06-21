@@ -12,17 +12,17 @@ Meteor.publish('userInfo', function () {
 
 //Publish unplaced students
 Meteor.publish('unplacedStudents', function(){
-  return Meteor.users.find({ "roles": "registered", $and: [{"roles": "student"}, {"profile.isAuthorized": true}, {"profile.isPlaced": false}]});
+  return Meteor.users.find({ "roles": "registered", $and: [{"roles": "student"}, {"profile.isAuthorized": true}, {"profile.isPlaced": false}] },  {sort: {'profile.lastName': 1}});
 });
 
-//Publish tutors except current tutor
+//Publish tutors
 Meteor.publish("tutors", function(){
-  return Meteor.users.find({"roles":"registered", $and: [ {"roles": "tutor"}, {"profile.isAuthorized": true}]} );
+  return Meteor.users.find({"roles":"registered", $and: [ {"roles": "tutor"}, {"profile.isAuthorized": true}]}, {sort: {'profile.lastName': 1}} );
 });
 
 //Publish educators
 Meteor.publish('educators', function(){
-  return Meteor.users.find({ "roles": "registered", $and: [{"roles": "educator"}, {"profile.isAuthorized": true}]});
+  return Meteor.users.find({ "roles": "registered", $and: [{"roles": "educator"}, {"profile.isAuthorized": true}] },  {sort: {'profile.lastName': 1}});
 });
 
 
@@ -50,6 +50,11 @@ Meteor.publish('themes', function(){
 //Publish all themetypes
 Meteor.publish('themetypes', function(){
   return Themetypes.find({}, {sort: {'name': 1}});
+});
+
+Meteor.publish('organizationNames', function(){
+  return Establishments.find({}, {fields: {'name': 1}}, {sort: {'name': 1}});
+
 });
 
 //Publish all organizations/establishments

@@ -7,7 +7,7 @@ Template.themesList.onRendered(function () {
 
 Template.trustList.events({
   'change .themesSelect': function(event, template){
-    let theme= $('.themesSelect option:selected').val();
+    let theme= $('.themesSelect option:selected').select2("val");
     if(theme===""){
       Bert.alert("You haven't selected any themes!", "warning");
     }

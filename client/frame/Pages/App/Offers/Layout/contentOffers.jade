@@ -1,8 +1,25 @@
 template(name="contentOffers")
   +contentFor("floatingButtons")
-    button(class="floating-button" type="button" title="Update offers..." )
-      i( class="fa fa-upload ")
-      i(class="fa fa-ellipsis-h fa-small")
+    if isInRole "tutor"
+      button(class="floating-button" type="button" name="uploadOffers" title="Update offers..." )
+        i( class="fa fa-upload ")
+        i(class="fa fa-ellipsis-h fa-small")
+  +contentFor("sidebar")
+    if isInRole "tutor"
+      if quickUploadOffers
+        h2 Update offers
+        p To update the offer collection, upload a CSV file below.
+        unless uploading
+          div(class="row")
+            div(class="column")
+              label(for="updateOffers")
+                i(class="fa fa-briefcase" aria-hidden="true")
+                | Upload offers file
+                input(type="file" name="updateOffers" class="fileUploader" accept=".csv" aria-labelledby="upload a csv file to update offers" title="upload a csv file to update offers")
+        else
+          p(class="text-centered")
+            i(class="fa fa-spin fa-refresh massiveSize" aria-hidden="true")
+            | Uploading files...
   form(class="form_search-quick")
     h2 Browse offers
     +EasySearch.IfInputEmpty index=index
@@ -11,6 +28,7 @@ template(name="contentOffers")
           h4 Filter by
         div(class="row row_subfilter")
           {{> hostFilter }}
+          {{> themeFilter }}
           {{> accommodationFilter }}
           {{> carFilter }}
         div(class="row")
@@ -33,6 +51,8 @@ template(name="contentOffers")
             span(class="column")
               b Host organization
             span(class="column")
+              b Theme
+            span(class="column")
               b Themetypes
             span(class="column")
               b Date of start
@@ -45,6 +65,7 @@ template(name="contentOffers")
               div(class="row row_main")
                 span(class="column") {{ _id }}
                 span(class="column") {{ hostOrganization }}
+                span(class="column") {{ theme }}
                 span(class="column") {{ themetypes }}
                 span(class="column") {{ startDate }}
                 span(class="column") {{ endDate }}

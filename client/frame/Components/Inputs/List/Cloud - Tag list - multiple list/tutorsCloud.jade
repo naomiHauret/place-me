@@ -1,0 +1,11 @@
+template(name="tutorsCloud")
+  div(class="row")
+    div(class="column")
+      label(for="tutorsCloud")
+        i(class="fa fa-user" aria-hidden="true")
+        | Tutors
+      select(class="tutorsCloud"  aria-labelledby="list of tutors" name="tutorsCloud" multiple="multiple" required)
+        option(disabled selected value="") -- select or type tutors --
+        each tutor
+          option(value="{{ _id }}" data-id="{{ _id }}") {{ profile.firstName }} {{ profile.lastName }}
+      p (You can delete a tutor with [DEL] key)    

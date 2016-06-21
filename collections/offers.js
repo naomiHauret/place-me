@@ -15,20 +15,19 @@ Offers.deny({
 
 
 //Easy search
-
-
-OffersIndex = new EasySearch.Index({
-  collection: Offers,
-  fields: ['_id', 'createdAt'],
+OffersIndex = new EasySearch.Index({ //new index called OffersIndex. Accessible from anywhere within the project
+  collection: Offers, //collection to fetch document from
+  fields: ['_id', 'createdAt'], //fields to seach upon
   defaultSearchOptions: {
-    sortBy: 'newest',
-    limit: 6
+    sortBy: 'newest', //default sort option: newest documents first
+    limit: 6 // maximum number of document to be displayed (increasable from the user interface)
   },
-  engine: new EasySearch.Minimongo({
-    sort: function (searchObject, options) {
-      const sortBy = options.search.props.sortBy;
+  engine: new EasySearch.Minimongo({ //Minimongo engine is used here
 
-      // return a mongo sort specifier
+    sort: function (searchObject, options) { //results sorter
+
+       sortBy = options.search.props.sortBy; // return a mongo sort specifier
+
       if ('newest' === sortBy) {
         return {
           createdAt: -1 //most recent offers first
@@ -47,6 +46,11 @@ OffersIndex = new EasySearch.Index({
     //filter by
     selector: function (searchObject, options, aggregation) {
       let selector = this.defaultConfiguration().selector(searchObject, options, aggregation);
+
+      //filter:  theme provided or not
+      if(options.search.props.themeId){
+        selector.themeId= options.search.props.themeId;
+      }
 
       //filter:  car provided or not
       if(options.search.props.carFilter){

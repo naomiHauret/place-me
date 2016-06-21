@@ -1,20 +1,20 @@
 template(name="selectStatus")
-  div(class="row")
+  div(class="row-column")
     div(class="column")
       label(for="status")
           i(class="fa fa-users fa-fw" aria-hidden="true")
           | Status
-        select(name="status" aria-labelledby="status" required)
-          option(disabled selected value) -- Select a status --
-          option(value="student")
-            i(class="fa fa-graduation-cap fa-fw" aria-hidden="true") 
-            | Student
-          option(value="tutor")
-            i(class="fa fa-suitcase fa-fw" aria-hidden="true") 
-            | Tutor
-          option(value="educator")
-            i(class="fa fa-medkit fa-fw" aria-hidden="true") 
-            | Educator
-          option(value="coordinator")
-            i(class="fa fa-hospital-o fa-fw" aria-hidden="true") 
-            | Coordinator
+      select(name="status" aria-labelledby="status" required)
+        option(disabled selected value) -- Select a status --
+        option(value="student")
+          i(class="fa fa-graduation-cap fa-fw" aria-hidden="true") 
+          | Student
+        option(value="tutor")
+          i(class="fa fa-suitcase fa-fw" aria-hidden="true") 
+          | Tutor
+        option(value="educator")
+          i(class="fa fa-medkit fa-fw" aria-hidden="true") 
+          | Educator
+        option(value="coordinator")
+          i(class="fa fa-hospital-o fa-fw" aria-hidden="true") 
+          | Coordinator

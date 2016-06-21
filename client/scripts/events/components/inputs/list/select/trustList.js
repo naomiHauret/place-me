@@ -6,13 +6,9 @@ Template.trustList.onRendered(function () {
 });
 
 Template.trustList.events({
-  'change .trustSelect': function(event, template){
-    let establishment= $('.trustSelect').val();
-  },
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   "blur .trustSelect": function(event, template){
-    let establishment= $('.trustSelect option:selected').val();
+    let establishment= $('.trustSelect').select2("val");
     if(establishment===""){
       Bert.alert("You haven't selected any establishment!", "warning");
     }

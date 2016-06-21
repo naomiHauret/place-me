@@ -14,7 +14,7 @@ Establishments.deny({
   remove: () => true
 });
 
-//search index for easy:search 
+//search index for easy:search
 EstablishmentsIndex = new EasySearch.Index({
   engine:  new EasySearch.Minimongo({ //use minimongo (client-side collection ) to search
       sort: () => { name: 1 }, // sort by  name

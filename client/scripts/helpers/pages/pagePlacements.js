@@ -10,7 +10,7 @@ Template.contentAddPlacements.helpers({
   },
 
   definedPlacement(){
-    return (Session.get("selectedStudent") !== undefined && ( Session.get("selectedOffer") !== undefined  || Template.instance().createPlacement.get() === true));
+    return (Session.get("selectedStudent") !== undefined &&  Session.get("selectedOffer") !== undefined);
 
   },
 
@@ -89,6 +89,29 @@ Template.contentAddPlacements.helpers({
     return Establishments.findOne({_id: hostId}).name;
   },
 
+  offerTheme(){
+    let offerId= Session.get("selectedOffer");
+    let themeId= Offers.findOne({_id: offerId}).themeId;
+    return Themes.findOne({_id: themeId}).themeName;
+  },
+
+  offerHostOrganizationList(){
+    let offerId= this._id;
+    let hostId= Offers.findOne({_id: offerId}).hostOrganizationId;
+    return Establishments.findOne({_id: hostId}).name;
+  },
+
+  offerThemetypesList(){
+    let offerId= this._id;
+    let themetypes ="";
+    let themetypesIdArray= Offers.findOne({_id: offerId }).themeTypesId;
+
+    themetypesIdArray.map(function(o){
+      themetypes+= " | "+Themetypes.findOne({"_id": o.toString()}).name;
+    });
+    return themetypes;
+  },
+
   studentCohort(){
     let cohortId= Meteor.users.findOne({_id: this._id}).profile.cohortId;
     return Cohorts.findOne({_id: cohortId}).cohortYear;
@@ -96,6 +119,26 @@ Template.contentAddPlacements.helpers({
   studentProgramme(){
     let programmeId= Meteor.users.findOne({_id: this._id}).profile.programmeId;
     return Programmes.findOne({_id: programmeId}).programmeName;
+  },
+
+  isAccommodationProvided(){
+    let offerId= Session.get("selectedOffer");
+    let provided="no";
+    if(Offers.findOne({_id: offerId}).accommodation === true){
+      provided= "yes";
+    }
+
+    return provided;
+  },
+
+  isCarProvided(){
+    let offerId= Session.get("selectedOffer");
+    let provided="no";
+    if(Offers.findOne({_id: offerId}).car === true){
+      provided= "yes";
+    }
+
+    return provided;
   },
 
 

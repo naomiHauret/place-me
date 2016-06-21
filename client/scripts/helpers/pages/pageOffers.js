@@ -17,6 +17,11 @@ Template.contentOffers.helpers({
     return themetypes;
   },
 
+  theme(){
+    let themeId= Offers.findOne({_id: this._id}).themeId;
+    return Themes.findOne({_id: themeId}).themeName;
+  },
+
   publicationDate(){
     return moment(Offers.findOne({_id: this._id}).createdAt).format("MM/DD/YYYY"); // Eg: Sunday 15th June 2016 at 12:45
   },
@@ -37,12 +42,16 @@ Template.contentOffers.helpers({
     return false;
   },
 
+  quickUploadOffers(){
+    return Session.get("quickUploadOffers");
+  },
+
   renderTmpl: () => Template.renderTemplate
 
 });
 
 
-Template.contentAddOffer.helpers({
+Template.contentAddOffers.helpers({
   adding(){
     return Template.instance().adding.get();
   },

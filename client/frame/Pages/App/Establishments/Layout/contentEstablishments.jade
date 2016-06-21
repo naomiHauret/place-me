@@ -1,8 +1,25 @@
 template(name="contentEstablishments")
   +contentFor("floatingButtons")
-    button(class="floating-button" type="button" name="uploadEstablishments")
-      i( class="fa fa-upload ")
-      i(class="fa fa-ellipsis-h fa-small")
+    if isInRole "tutor"
+      button(class="floating-button" type="button" name="uploadEstablishments")
+        i( class="fa fa-upload ")
+        i(class="fa fa-ellipsis-h fa-small")
+  +contentFor("sidebar")
+    if isInRole "tutor"
+      if quickUploadEstablishments
+        h2 Update establishments
+        p To update the establishment collection, upload a CSV file below.
+        unless uploading
+          div(class="row")
+            div(class="column")
+              label(for="updateEstablishments")
+                i(class="fa fa-hospital-o" aria-hidden="true")
+                | Upload establishments file
+                input(type="file" name="updateEstablishments" class="fileUploader" accept=".csv" aria-labelledby="upload a csv file to update establishments" title="upload a csv file to update establishments")
+        else
+          p(class="text-centered")
+            i(class="fa fa-spin fa-refresh massiveSize" aria-hidden="true")
+            | Uploading files...
   form(class="form_search-quick")
     h2 Browse establishments
     div(class="row row_filter")
@@ -23,8 +40,7 @@ template(name="contentEstablishments")
       if filterHosts
         {{> trustFilter }}
       if filterTrusts
-        {{> hostFilter }}
-      
+        {{> hostFilter }}    
     +EasySearch.IfSearching index=index
       p Searching...
     div(class="row")

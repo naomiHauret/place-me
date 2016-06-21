@@ -159,7 +159,7 @@ Template.contentAddHost.events({
 
     //error case: establishment with the same name already exists
     if(exists){
-      Bert.alert("There's already an establishment called like that!", danger);
+      Bert.alert("There's already an establishment called like that!", "danger");
     }
     else{
       let establishmentData={
@@ -178,7 +178,7 @@ Template.contentAddHost.events({
       Meteor.call("addEstablishment",  establishmentData, function (error, result){
         if(error){
           template.adding.set( false ); //stop the spinner
-          Bert.alert("Host establishment couldn't be added. Please, try again.", danger);
+          Bert.alert("Host establishment couldn't be added. Please, try again.", "danger");
         }
         else{
           //alert (user feedback: success)
@@ -249,7 +249,7 @@ Template.contentAddTrust.events({
       Meteor.call("addEstablishment",  establishmentData, function (error, result){
         if(error){
           template.adding.set( false ); //stop the spinner
-          Bert.alert("Trust establishment couldn't be added. Please, try again.", danger);
+          Bert.alert("Trust establishment couldn't be added. Please, try again.", "danger");
         }
         else{
           //alert (user feedback: success)

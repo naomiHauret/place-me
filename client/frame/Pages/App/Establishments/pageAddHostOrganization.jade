@@ -32,29 +32,30 @@ template(name="contentAddHost")
     if isInRole "tutor"
       button(class="floating-button" type="button" name="quickAddTrust" title="add a new trust organization")
         i( class="fa fa-building-o ")
-        i(class="fa fa-plus-h fa-small")
+        i(class="fa fa-plus fa-small")
       button(class="floating-button" type="button" name="quickAddThemetypes" title="add a new themetype")
         i( class="fa fa-tags ")
-        i(class="fa fa-plus-h fa-small")
+        i(class="fa fa-plus fa-small")
   +contentFor("sidebar")
-    if quickAddTrust
-      h2 Add a new trust organization
-      form(id="quickAddTrust" name="sidebarForm")
-        {{> organizationName }}
-        {{> inputAddress }}
-        {{> inputPhone }}
-        {{> textareaAdditionalInformation }}
-        div(class="row")
-          unless adding  
-            button(type="submit")
-              i(class="fa fa-plus" aria-hidden='true')
-              | Add a new trust organization
-          else
-            div(class="column center")
-              p
-                i(class="fa fa-spinner fa-spin fa-2x" aria-hidden="true")
-                | We're adding this new trust organization, please wait...
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    if isInRole "tutor"
+      if quickAddTrust
+        h2 Add a new trust organization
+        form(id="quickAddTrust" name="sidebarForm")
+          {{> organizationName }}
+          {{> inputAddress }}
+          {{> inputPhone }}
+          {{> textareaAdditionalInformation }}
+          div(class="row")
+            unless adding  
+              button(type="submit")
+                i(class="fa fa-plus" aria-hidden='true')
+                | Add a new trust organization
+            else
+              div(class="column center")
+                p
+                  i(class="fa fa-spinner fa-spin fa-2x" aria-hidden="true")
+                  | We're adding this new trust organization, please wait...
+      //////////////////////////////////////////////////////////////////////////////////////////////////////////
       if quickAddThemetypes
         h2 Add a new themetype
         form(id="quickAddThemetypes" name="sidebarForm")

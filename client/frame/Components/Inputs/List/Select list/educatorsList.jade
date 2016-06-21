@@ -1,0 +1,10 @@
+template(name="educatorsList")
+  div(class="row-column")
+    label(for="educatorsList") 
+      i(class="fa fa-medkit" aria-hidden="true")
+      | Off-site educator
+    br
+    select( class="educatorSelect" aria-labelledby="list of educator" name="educatorsList" required)
+      option(disabled selected value="") -- Type or select an off-site educator --
+      each educator
+        option(value="{{ _id }}" data-id="{{ _id }}") {{ profile.firstName }} ({{ profile.lastName }})

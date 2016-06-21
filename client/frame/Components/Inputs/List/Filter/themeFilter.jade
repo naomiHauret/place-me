@@ -1,0 +1,9 @@
+template(name="themeFilter")
+  div(class="column")
+    label(for="themeFilter")
+      i(class="fa fa-tag" aria-hidden="true")
+      | Theme
+    select( aria-labelledby="themeFilter" name="themeFilter" )
+      option(selected value="all") All themes
+      each theme
+        option(value="{{ _id }}") {{ themeName }}

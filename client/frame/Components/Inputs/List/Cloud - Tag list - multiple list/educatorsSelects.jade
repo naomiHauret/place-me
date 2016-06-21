@@ -1,0 +1,20 @@
+template(name="educatorsSelects")
+  div(class="row-column")
+    label(for="educatorsList") 
+      i(class="fa fa-medkit" aria-hidden="true")
+      | Off-site educator
+    br
+    select( class="educatorSelect" aria-labelledby="list of educator" name="educatorsList" required)
+      option(disabled selected value="") -- Type or select an off-site educator --
+      each offSiteEducator
+        option(value="{{ _id }}" data-id="{{ _id }}") {{ profile.firstName }} {{ profile.lastName }}
+  div(class="row")
+    div(class="column")
+      label(for="educatorsCloud")
+        i(class="fa fa-user-md" aria-hidden="true")
+        | On-site educators
+      select(class="educatorsCloud"  aria-labelledby="list of educators" name="educatorsCloud" multiple="multiple" required)
+        option(disabled selected value="") -- select or type educators --
+        each onSiteEducator
+          option(value="{{ _id }}" data-id="{{ _id }}") {{ profile.firstName }} {{ profile.lastName }}
+      p (You can delete an educator with [DEL] key)    

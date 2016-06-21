@@ -39,6 +39,9 @@ Template.establishmentsList.helpers({
     console.log("filter host:"+Template.instance().filterHosts.get());
     return Template.instance().filterHosts.get();
   },
+  quickUploadEstablishments(){
+    return Session.get("quickUploadEstablishments");
+  },
   renderTmpl: () => Template.renderTemplate
 
 });
@@ -107,6 +110,6 @@ Template.contentAddHost.helpers({
     },
 
     quickAddThemetypes(){
-      return Session.get("quickAddThemetypes")
+      return Session.get("quickAddThemetypes");
     }
 });

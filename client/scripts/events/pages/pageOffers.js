@@ -2,6 +2,7 @@ Template.contentOffers.onRendered(function(){
   OffersIndex.getComponentMethods().removeProps('accommodationFilter');
   OffersIndex.getComponentMethods().removeProps('carFilter');
   OffersIndex.getComponentMethods().removeProps('hostOrganizationId');
+  OffersIndex.getComponentMethods().removeProps('themeId');
   OffersIndex.getComponentMethods().removeProps('sortBy');
   OffersIndex.getComponentMethods().addProps('sortBy', 'newest');
 
@@ -10,11 +11,18 @@ Template.contentOffers.onRendered(function(){
 Template.contentOffers.onDestroyed(function(){
   OffersIndex.getComponentMethods().removeProps('accommodationFilter');
   OffersIndex.getComponentMethods().removeProps('carFilter');
+  OffersIndex.getComponentMethods().removeProps('themeId');
   OffersIndex.getComponentMethods().removeProps('hostOrganizationId');
   OffersIndex.getComponentMethods().removeProps('sortBy');
 });
 
 Template.contentOffers.events({
+  "click button[name='place']": function(event, template){
+    Session.set("selectedOffer",  $(event.target).val() );
+    Router.go("add-placement");
+  },
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   "click .delete": function(event, template){
     event.preventDefault();
     let chosenOfferId=  $(event.target).val();
@@ -102,12 +110,23 @@ Template.contentOffers.events({
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   "change select[name='car']": function(e,template){
     let car= $(e.target).val();
-    console.log(car);
     if(car === "all" ){
       OffersIndex.getComponentMethods().removeProps('carFilter');
     }
     else{
       OffersIndex.getComponentMethods().addProps('carFilter',car);
+
+    }
+  },
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  "change select[name='themeFilter']": function(e,template){
+    let theme= $(e.target).val();
+    if(theme === "all" ){
+      OffersIndex.getComponentMethods().removeProps('themeId');
+    }
+    else{
+      OffersIndex.getComponentMethods().addProps('themeId',theme);
 
     }
   }

@@ -1,4 +1,8 @@
 Template.sidebar.helpers({
+  uploading(){
+    return Template.instance().uploading.get();
+
+  },
   adding(){
     return Template.instance().adding.get();
   },
@@ -9,30 +13,34 @@ Template.sidebar.helpers({
     return Session.get("quickAddHost");
   },
   quickAddEducator(){
-    return Session.get("quickEducator");
+    return Session.get("quickAddEducator");
   },
   quickAddThemetypes(){
-    return Session.get("quickAddThemetypes")
+    return Session.get("quickAddThemetypes");
   },
   quickAddTheme(){
-    return Session.get("quickAddTheme")
+    return Session.get("quickAddTheme");
   },
   quickUploadUsers(){
     return Session.get("quickUploadUsers");
   },
   quickUploadEstablishments(){
-    return Session.get("quickUploadUsers");
+    return Session.get("quickUploadEstablishments");
   },
   quickUploadOffers(){
-    return Session.get("quickUploadUsers");
+    return Session.get("quickUploadOffers");
   },
   quickUploadPlacements(){
-    return Session.get("quickUploadUsers");
+    return Session.get("quickUploadPlacements");
   },
   quickUploadVisits(){
-    return Session.get("quickUploadUsers");
+    return Session.get("quickUploadVisits");
   },
   quickViewStaff(){
     return Session.get("quickViewStaff");
+  },
+
+  quickViewLogin(){
+    return Session.get("quickViewLogin")
   }
 });

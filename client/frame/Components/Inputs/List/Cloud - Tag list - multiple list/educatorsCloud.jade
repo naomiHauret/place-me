@@ -1,0 +1,11 @@
+template(name="educatorsCloud")
+  div(class="row")
+    div(class="column")
+      label(for="educatorsCloud")
+        i(class="fa fa-user-md" aria-hidden="true")
+        | Educators
+      select(class="educatorsCloud"  aria-labelledby="list of educators" name="educatorsCloud" multiple="multiple" required)
+        option(disabled selected value="") -- select or type educators --
+        each educator
+          option(value="{{ _id }}" data-id="{{ _id }}") {{ profile.firstName }} {{ profile.lastName }}
+      p (You can delete an educator with [DEL] key)    

@@ -10,20 +10,20 @@ template(name="menu")
           div(class="icon")
           div(class="column_button")
             span Placements 
-            div(class="badge") new
+            //div(class="badge") new
       if isInRole 'tutor' 
         a(href="{{ pathFor 'visits' }}" title="Go to visits" class="column")
           button(type="button" class="column column_iconAction column_iconAction-visits")
             div(class="icon")
             div(class="column_button")
               span Visits 
-              div(class="badge") 5
+              //div(class="badge") 5
       a(href="{{ pathFor 'offers' }}" title="Go to offers" class="column")
         button(type="button" class="column column_iconAction column_iconAction-offers")
           div(class="icon")
           div(class="column_button")
             span Offers 
-            div(class="badge") 25
+        //    div(class="badge") 25
       a(href="{{ pathFor 'users' }}" title="Go to my users" class="column")
         button(type="button" class="column column_iconAction column_iconAction-users")
           div(class="icon")
@@ -32,12 +32,12 @@ template(name="menu")
         button(type="button" class="column column_iconAction column_iconAction-establishments")
           div(class="icon")
           div(class="column_button") Establishments
-      a(href="{{ pathFor 'docs' }}" title="Go to shared documents" class="column")
-        button(type="button" class="column column_iconAction column_iconAction-docs")
-          div(class="icon")
-          div(class="column_button")
-            span Shared docs 
-            div(class="badge") new
+      //a(href="{{ pathFor 'docs' }}" title="Go to shared documents" class="column")
+      //  button(type="button" class="column column_iconAction column_iconAction-docs")
+        //  div(class="icon")
+        //  div(class="column_button")
+          //  span Shared docs 
+          //  div(class="badge") new
       if isInRole 'tutor' 
         a(href="{{ pathFor 'activity' }}" title="Go to login activity" class="column")
           button(type="button" class="column column_iconAction column_iconAction-activity")

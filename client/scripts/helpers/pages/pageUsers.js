@@ -177,17 +177,29 @@ Template.contentUsers.helpers({
     }
     return result;
   },
+
+  quickUploadOffers(){
+    return Session.get("quickUploadUsers");
+  },
   renderTmpl: () => Template.renderTemplate
 });
 
 Template.contentAddCoordinator.helpers({
   adding(){
     return Template.instance().adding.get();
+  },
+  quickAddTrust(){
+    return Session.get("quickAddTrust");
   }
+
 });
 
 Template.contentAddEducator.helpers({
   adding(){
     return Template.instance().adding.get();
+  },
+  quickAddHost(){
+    return Session.get("quickAddHost");
   }
+
 });

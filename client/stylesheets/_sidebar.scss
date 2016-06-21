@@ -119,3 +119,27 @@
     -webkit-transform: translate3d(-40vw, 0, 0);
     transform: translate3d(-40vw, 0, 0);
 }
+
+@media screen and (max-width: 1000px){
+  .ui.left.sidebar[class*="very wide"], .ui.right.sidebar[class*="very wide"] {
+      width: 75vw;
+  }
+
+  .ui.visible.right.sidebar[class*="very wide"] ~ .fixed, .ui.visible.right.sidebar[class*="very wide"] ~ .pusher {
+      -webkit-transform: translate3d(-75vw, 0, 0);
+      transform: translate3d(-75vw, 0, 0);
+  }
+
+}
+
+@media screen and (max-width: 640px){
+  .ui.left.sidebar[class*="very wide"], .ui.right.sidebar[class*="very wide"] {
+      width: 95vw;
+  }
+
+  .ui.visible.right.sidebar[class*="very wide"] ~ .fixed, .ui.visible.right.sidebar[class*="very wide"] ~ .pusher {
+      -webkit-transform: translate3d(-95vw, 0, 0);
+      transform: translate3d(-95vw, 0, 0);
+  }
+
+}

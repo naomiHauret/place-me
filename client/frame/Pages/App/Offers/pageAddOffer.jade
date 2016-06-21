@@ -7,19 +7,20 @@ template(name="contentIndicationsAddOffer")
   | To add a new placement offer please fill the form below.
   
 template(name="contentAddOffers")
-  if isInRole "tutor"
-    +contentFor("floatingButtons")
+  +contentFor("floatingButtons")
+    if isInRole "tutor"
       button(class="floating-button" type="button" name="quickAddHost" title="Add a host organization...")
         i( class="fa fa-building-o" aria-hidden="true")
         i(class="fa fa-plus fa-small" aria-hidden="true")
       button(class="floating-button" type="button" name="quickAddThemetypes" title="Add a themetype...")
         i( class="fa fa-tags" aria-hidden="true")
         i(class="fa fa-plus fa-small" aria-hidden="true")
-    +contentFor("sidebar")
-      if quickAddHost
+  +contentFor("sidebar")
+    if quickAddHost
+      if isInRole "tutor"
         h2 Add a new host organization
         form(id="quickAddHost" name="sidebarForm")
-          {> organizationName }}
+          {{> organizationName }}
           {{> trustList }}
           {{> themetypesCloud }}
           {{> inputAddress }}
@@ -35,20 +36,21 @@ template(name="contentAddOffers")
                 p
                   i(class="fa fa-spinner fa-spin fa-2x" aria-hidden="true")
                   | We're adding this new host organization, please wait...
-      if quickAddThemetypes
+    if quickAddThemetypes
+      if isInRole "tutor"
         h2 Add a new themetype
-          form(id="quickAddThemetypes" name="sidebarForm")
-            {{> themetypeInputs }}
-            div(class="row")
-              unless adding  
-                button(type="submit")
-                  i(class="fa fa-plus" aria-hidden='true')
-                  | Add a new themetype
-              else
-                div(class="column center")
-                  p
-                    i(class="fa fa-spinner fa-spin fa-2x" aria-hidden="true")
-                    | We're adding this new themetype, please wait...
+        form(id="quickAddThemetypes" name="sidebarForm")
+          {{> themetypeInputs }}
+          div(class="row")
+            unless adding  
+              button(type="submit")
+                i(class="fa fa-plus" aria-hidden='true')
+                | Add a new themetype
+            else
+              div(class="column center")
+                p
+                  i(class="fa fa-spinner fa-spin fa-2x" aria-hidden="true")
+                  | We're adding this new themetype, please wait...
   div(class="content_form")
     form(name="addOffer")
       {{> hostList }}

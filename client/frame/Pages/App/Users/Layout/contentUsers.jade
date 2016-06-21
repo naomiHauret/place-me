@@ -1,8 +1,22 @@
 template(name="contentUsers")
   +contentFor("floatingButtons")
-    button(class="floating-button" type="button" value="uploadUsers")
-      i( class="fa fa-upload " aria-hidden="true")
-      i(class="fa fa-ellipsis-h fa-small" aria-hidden="true")
+    if isInRole "tutor"
+      button(class="floating-button" type="button" name="uploadUsers" value="uploadUsers")
+        i( class="fa fa-upload " aria-hidden="true")
+        i(class="fa fa-ellipsis-h fa-small" aria-hidden="true")
+  +contentFor("sidebar")
+    if isInRole "tutor"
+      if quickUploadUsers
+        div(class="row")
+          div(class="column")
+            label(for="updateUsers")
+              i(class="fa fa-group" aria-hidden="true")
+              | Upload users file
+              input(type="file" name="updateUsers" class="fileUploader" accept=".csv" aria-labelledby="upload a csv file to update users")
+      else
+        p(class="text-centered")
+          i(class="fa fa-spin fa-refresh massiveSize" aria-hidden="true")
+          | Uploading files...
   form(class="form_search-quick")
     h2 Browse users  
     div(class="row row_filter")
@@ -59,8 +73,7 @@ template(name="contentUsers")
                 span(class="column") {{ profile.phone }}
         unless profileCurrentUser 
           if isInRole "tutor"
-            div(class="row row_aside") 
-            
+            div(class="row row_aside")   
               if authorized
                 button(value="{{_id}}" class="column result_button restrict" type="button" title="Restrict access" name="restrict")
                   span

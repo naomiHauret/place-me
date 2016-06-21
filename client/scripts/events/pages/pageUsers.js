@@ -30,6 +30,12 @@ Template.contentUsers.onDestroyed(function(){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Template.contentUsers.events({
+    "click button[name='place']": function(event, template){
+      Session.set("selectedStudent",  $(event.target).val() );
+      Router.go("add-placement");
+    },
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     "click .giveAccess": function(event, template){
         event.preventDefault();
         let chosenUserId=  $(event.target).val();
@@ -106,7 +112,9 @@ Template.contentUsers.events({
         let userId= $(event.target).val(); //_id of the user we have to delete
         if(isConfirm){
           Meteor.call("blockUserAccount", userId, function(error, result){
-            if(error){ //user not deleted
+
+            if(error){ //user not blocked
+              //blocking alert requiring a decision
               swal({
                 title: "An error occured",
                 text: "We're sorry but this user <b>couldn't be blocked</b>. Please, <b>try again</b>.",
@@ -124,18 +132,18 @@ Template.contentUsers.events({
                   document.location.reload(true); //reload the page
                 }
                 else{
-                  Bert.alert("To block this user you will have to reload the page.", "info");
+                  Bert.alert("To block this user you will have to reload the page.", "info"); //info toastr
                 }
               });
             }
             else{ //success (user blocked)
                 swal.close();
-                Bert.alert("User successfully blocked!", "success");
+                Bert.alert("User successfully blocked!", "success"); //success toastr
             }
           });
         }
         else{
-          Bert.alert("Block cancelled.", "info");
+          Bert.alert("Block cancelled.", "info"); //info toastr
         }
       });
     },

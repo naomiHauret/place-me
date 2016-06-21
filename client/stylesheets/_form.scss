@@ -13,6 +13,12 @@ form{
     margin-left: 8px;
     cursor: pointer;
   }
+
+  .row-column{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
   .separator{
     margin-top:10px;
     margin-bottom:10px;

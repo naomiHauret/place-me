@@ -63,6 +63,23 @@ Meteor.methods({
         Placements.update({id:item.id}, item); //update it
       }
     }
+  },
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  parseUploadOffers(data) {
+    check( data, Array ); //check if our data is an array
+
+    for ( let i = 0; i < data.length; i++ ) {
+      let item   = data[ i ],
+          exists = Offers.findOne( { _id: item. _id } ); //check if our object already exists in our collections
+
+      if ( !exists ) {//if not
+        Offers.insert( item ); //insert
+      }
+      else { //if so
+        Offers.update({id:item.id}, item); //update it
+      }
+    }
   }
 
 });

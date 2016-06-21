@@ -1,1 +1,31 @@
 template(name="contentDatabase")
+  if isInRole "tutor"
+    form(class="form_search-quick")
+      h2 Update database
+      {{> yield "contentIndications" }}    
+      unless uploading
+        div(class="row")
+          div(class="column")
+            label(for="updateUsers")
+              i(class="fa fa-group" aria-hidden="true")
+              | Upload users file
+              input(type="file" name="updateUsers" class="fileUploader" accept=".csv" aria-labelledby="upload a csv file to update users")
+          div(class="column")
+            label(for="updateEstablishments")
+              i(class="fa fa-hospital-o" aria-hidden="true")
+              | Upload establishments file
+              input(type="file" name="updateEstablishments" class="fileUploader" accept=".csv" aria-labelledby="upload a csv file to update establishments")
+          div(class="column")
+            label(for="updatePlacements")
+              i(class="fa fa-map-marker" aria-hidden="true")
+              | Upload placements file
+              input(type="file" name="updatePlacements" class="fileUploader" accept=".csv" aria-labelledby="upload a csv file to update placements")
+          div(class="column")
+            label(for="updateVisits")
+              i(class="fa fa-calendar" aria-hidden="true")
+              | Upload visits file
+              input(type="file" name="updateVisits" class="fileUploader" accept=".csv" aria-labelledby="upload a csv file to update visits")
+      else
+        p(class="text-centered")
+          i(class="fa fa-spin fa-refresh massiveSize" aria-hidden="true")
+          | Uploading files...

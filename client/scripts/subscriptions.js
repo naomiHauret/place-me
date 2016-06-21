@@ -36,6 +36,7 @@ Template.trustList.onCreated(function(){
 });
 
 
+
 Template.cohortFilter.onCreated(function(){
   let self = this;
   self.autorun(function() {
@@ -57,6 +58,13 @@ Template.hostFilter.onCreated(function(){
    });
 });
 
+Template.themeFilter.onCreated(function(){
+   let self = this;
+   self.autorun(function() {
+       self.subscribe('themes');
+   });
+});
+
 Template.trustFilter.onCreated(function(){
    let self = this;
    self.autorun(function() {
@@ -64,6 +72,12 @@ Template.trustFilter.onCreated(function(){
    });
 });
 
+Template.organizationName.onCreated(function(){
+  let self = this;
+  self.autorun(function() {
+      self.subscribe('organizationNames');
+  });
+});
 
 Template.organizationInput.onCreated(function(){
   let self = this;
@@ -86,7 +100,35 @@ Template.themetypesCloud.onCreated(function(){
    });
 });
 
+Template.educatorsSelects.onCreated(function(){
+   let self = this;
+   self.autorun(function() {
+       self.subscribe('educators');
+   });
+});
+
+Template.tutorsCloud.onCreated(function(){
+   let self = this;
+   self.autorun(function() {
+       self.subscribe('tutors');
+   });
+});
+
+Template.themetypeInputs.onCreated(function(){
+   let self = this;
+   self.autorun(function() {
+       self.subscribe('themetypes');
+   });
+});
+
 Template.themesList.onCreated(function(){
+  let self = this;
+  self.autorun(function() {
+      self.subscribe('themes');
+  });
+});
+
+Template.themeInputs.onCreated(function(){
   let self = this;
   self.autorun(function() {
       self.subscribe('themes');
@@ -193,6 +235,8 @@ Template.contentOffers.onCreated(function(){
       self.subscribe('activeOffers');
       self.subscribe('hostOrganizations');
       self.subscribe('themetypes');
+      self.subscribe('themes');
+
   });
 });
 
@@ -208,6 +252,7 @@ Template.contentIndicationsOfferDetails.onCreated(function(){
   self.autorun(function() {
       self.subscribe('offers');
       self.subscribe('themetypes');
+      self.subscribe('themes');
       self.subscribe("hostOrganizations");
   });
 });
@@ -219,7 +264,7 @@ Template.contentAddPlacements.onCreated(function(){
   self.autorun(function() {
       self.subscribe('activeOffers');
       self.subscribe("themes");
-      self.subscribe("thememetypes");
+      self.subscribe("themetypes");
       self.subscribe('unplacedStudents');
       self.subscribe('tutors');
       self.subscribe('educators');
@@ -234,7 +279,8 @@ Template.sidebar.onCreated(function(){
   let self = this;
     self.autorun(function() {
     self.subscribe('activeOffers');
-    self.subscribe("thememetypes");
+    self.subscribe("themetypes");
+    self.subscribe("themes");
     self.subscribe('unplacedStudents');
     self.subscribe('organizations');
     self.subscribe('cohorts');
