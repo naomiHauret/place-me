@@ -112,6 +112,16 @@ form{
  .result_button:hover{
    font-size:15px;
  }
+ fieldset {
+   button{
+    background: $darker-green;
+  }
+  button:hover{
+    background: $darkest-green ;
+  }
+}
+
+
 }
 
 input, select, textarea{

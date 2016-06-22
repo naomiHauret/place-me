@@ -156,47 +156,89 @@ Template.contentAddPlacements.events({
   'submit form[name="placementForm"]': function(event, template){
     event.preventDefault();
     template.adding.set(true);
+
+    let author= Meteor.userId();
     let studentId= Session.get("selectedStudent");
     let onSiteEducators= $('form[name="placementForm"] .educatorsCloud').select2("val") ;
     let offSiteEducator= $('form[name="placementForm"] .educatorSelect').select2("val");
-    let tutorsIds= $('form[name="placementForm"] .tutorsCloud').select2("val");;
-    let themeId= $('form[name="placementForm"] .themesSelect').select2("val") ;
+    let tutorsIds= $('form[name="placementForm"] .tutorsCloud').select2("val");
     let startDate= $("form[name='placementForm'] input[name='startdate']").val();
     let endDate= $("form[name='placementForm'] input[name='enddate']").val();
-    let accommodation= $("form[name='placementForm'] input[name='accommodationRequired']").is(":checked");
-    let car= $("form[name='placementForm'] input[name='carRequired']").is(":checked");
+    let accommodationRequired= $("form[name='placementForm'] input[name='accommodationRequired']").is(":checked");
+    let carRequired= $("form[name='placementForm'] input[name='carRequired']").is(":checked");
     let isFinished= false;
     let additionalInformation= $('form[name="placementForm"] textarea').val();
-
     let placementData= {
-      'author': Meteor.userId(),
-      'createdAt': new Date(),
       "studentId": studentId,
-      'offSiteEducatorId': offSiteEducatorId,
+      'offSiteEducatorId': offSiteEducator,
       'onSiteEducatorIds': onSiteEducators,
       'tutorsIds': tutorsIds,
-      'themeId': themeId,
       'startDate': startDate,
       'endDate': endDate,
-      'accommodation': accommodation,
-      'car': car,
-      'isFinished': false,
-      'isFinishedFilter': "false",
+      'accommodation': accommodationRequired,
+      'car': carRequired,
       'additionalInformation': additionalInformation
     };
+
     if(Session.get("selectedOffer")){
       placementData.isFromOffer= true;
+      placementData.offerId= Session.get("selectedOffer");
     }
     else if(Template.instance().createPlacement.get() === true){
+      placementData.hostOrganizationId= $('form[name="placementForm"] .hostSelect').select2("val");
       placementData.isFromOffer= false;
-
+      placementData.themeId=  $('form[name="placementForm"] .themesSelect').select2("val");
+      placementData.themeTypesId= $('form[name="placementForm"] .themetypesCloud').select2("val");
     }
 
-    Meteor.call('addPlacement', placementData, function(error, result){
+    Meteor.call("addPlacement", placementData, function(error, result){
+      if(error){ //user not deleted
+        Bert.alert(error.reason, "danger");
+        template.adding.set(false);
+      }
+      else{ //success (user deleted)
+
+        swal({
+          title: "Placement added!",
+          type: "success",
+          text: "This new placement is <b>added</b>.<br> Would you like to <b>add another one</b> ?",
+          html: true,
+          showConfirmButton: true,
+          showCancelButton: true,
+          confirmButtonColor: "#6E3BD2",
+          confirmButtonText: "Yes",
+          cancelButtonText: "No, go back to placements list",
+          closeOnCancel: true,
+          closeOnConfirm: true
+        },
+        function(isConfirm){
+          if (!isConfirm) { //cancel button clicked
+            Router.go("placements"); //go to placements page
+          }
+          else{ //confirm button (add another organization)
+            //empty all inputs
+            $('form[name="addPlacement"] input').val("");
+            $('form[name="addPlacement"] input[type="checkbox"]').prop("checked", false);
+            $('form[name="addPlacement"] input[type="checkbox"]').attr("checked", false);
+            $('form[name="addPlacement"] textarea').val("");
+            $('form[name="addPlacement"] .hostSelect').select2("val", "");
+            $('form[name="addPlacement"] .educatorSelect').select2("val", "");
+            $('form[name="addPlacement"] .educatorsCloud').select2("val", "");
+            $('form[name="addPlacement"] .tutorsCloud').select2("val", "");
+          }
+        });
+        template.adding.set(false);
+        Session.set('selectedStudent', undefined);
+        Session.set('selectedOffer', undefined);
+        template.createPlacement.set(false);
+      }
+    });
+    /*
+    Meteor.call('removeOffer', Session.get("selectedOffer"), function(error, result){
+      console.log(result);
       if(error){
         Bert.alert(error.reason, "danger");
         template.adding.set(false);
-
       }
       else{
         Session.set('selectedStudent', undefined);
@@ -204,7 +246,7 @@ Template.contentAddPlacements.events({
         Template.createPlacement.set(false);
         template.adding.set(false);
         swal({
-          title: "Placement  added!",
+          title: "Placement added!",
           type: "success",
           text: "This new placement is <b>added</b>.<br> Would you like to <b>add another one</b> ?",
           html: true,
@@ -234,8 +276,6 @@ Template.contentAddPlacements.events({
         });
 
       }
-    })
-
-
+    });*/
   }
 });

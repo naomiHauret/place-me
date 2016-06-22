@@ -10,7 +10,7 @@ Template.contentAddPlacements.helpers({
   },
 
   definedPlacement(){
-    return (Session.get("selectedStudent") !== undefined &&  Session.get("selectedOffer") !== undefined);
+    return ( (Session.get("selectedStudent") !== undefined &&  Session.get("selectedOffer") !== undefined) || (Session.get("selectedStudent") !== undefined && Template.instance().createPlacement.get()===true ));
 
   },
 
