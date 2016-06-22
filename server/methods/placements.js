@@ -3,7 +3,7 @@ Meteor.methods({
     //placement from offer
     let carFilter= "false";
     let accommodationFilter= "false";
-
+    let placementId;
     if(placementData.car === true){
       carFilter= "true";
     }
@@ -12,7 +12,7 @@ Meteor.methods({
       accommodationFilter = "true";
     }
     if(placementData.isFromOffer === true){
-    Placements.insert({
+    placementId=Placements.insert({
         'author': Meteor.userId(),
         'createdAt': new Date(),
         "studentId":placementData.studentId,
@@ -42,7 +42,7 @@ Meteor.methods({
 
     //created ex nihilo placement
     else{
-        Placements.insert({
+      placementId=Placements.insert({
         'author': Meteor.userId(),
         'hostOrganizationId': placementData.hostOrganizationId,
         'createdAt': new Date(),
@@ -62,6 +62,12 @@ Meteor.methods({
         'additionalInformation': placementData.additionalInformation
       });
     }
+
+    //Sending emails
+    Meteor.call("sendStudentPlacementNotification", placementId); //to concerned student
+    Meteor.call("sendTutorsPlacementNotification", placementId); //to concerned tutors
+    Meteor.call("sendEducatorsPlacementNotification", placementId); //to concerned educators
+
     return Meteor.users.update({_id: placementData.studentId}, {$set: { 'profile.isPlaced' : true, 'profile.isPlacedFilter' : "true"}});
 
   },
