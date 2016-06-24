@@ -249,19 +249,26 @@ template(name="contentAddPlacements")
                     label
                       i(class="fa fa-qrcode" aria-hidden="true")
                       | Reference
-                    span {{ offer._id }}          
+                    span
+                      a(href="/app/offers/{{ offer._id }}" title="See the offer details") {{ offer._id }}
                   div(class="column")
                     label
                       i(class="fa fa-building-o" aria-hidden="true")
                       | Host organization
                     span
-                      a(href="/app/establishments/{{ hostOrganizationId }}" title="See the establishment details") {{ hostOrganization }}
+                      a(href="/app/establishments/{{ hostOrganizationId }}" title="See the establishment details") {{ offerHostOrganization }}
+                div(class="row-inline")
+                  div(class="column")
+                    label
+                      i(class="fa fa-tags" aria-hidden="true")
+                      | Theme
+                    span {{ offerTheme }}
                 div(class="row-inline")
                   div(class="column")
                     label
                       i(class="fa fa-tags" aria-hidden="true")
                       | Themetypes
-                    span {{ themetypes }}
+                    span {{ offerThemetypes }}
                 span(class="separator")
                 h5 Dates
                 div(class="row")
@@ -323,12 +330,12 @@ template(name="contentAddPlacements")
             fieldset(class="column placementFormStep")
               legend
                 h4 Create a new placement
-              {{> hostList }}
+              {{> hostList}}
               {{> themesList }}
               {{> themetypesCloud }}
+              {{> educatorsSelects }}
               {{> inputDates }}
               {{> requiredCheckboxes }}
-              {{> educatorsSelects }}
               {{> tutorsCloud }}
               {{> textareaAdditionalInformation }}
               button(type="button" name="selectOffer")

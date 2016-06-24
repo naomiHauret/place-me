@@ -1,3 +1,13 @@
+Template.contentOffers.onCreated(function(){
+  Bert.alert({
+    title: 'Loading data...',
+    message: 'Please, wait few seconds, data are being fetched and displayed.',
+    type: 'info',
+    style: 'growl-bottom-right',
+    icon: 'fa-spinner fa-spin'
+  });  
+});
+
 Template.contentOffers.onRendered(function(){
   OffersIndex.getComponentMethods().removeProps('accommodationFilter');
   OffersIndex.getComponentMethods().removeProps('carFilter');
@@ -40,10 +50,10 @@ Template.contentOffers.events({
       closeOnConfirm: false
     },
     function(isConfirm){
-      let offerId= $(event.target).val(); //_id of the user we have to delete
+      let offerId= $(event.target).val(); //_id of the offer we have to delete
       if(isConfirm){
         Meteor.call("removeOffer", offerId, function(error, result){
-          if(error){ //user not deleted
+          if(error){ //offer not deleted
             swal({
               title: "An error occured",
               text: "We're sorry but this offer <b>couldn't be deleted</b>. Please, <b>try again</b>.",
@@ -65,7 +75,7 @@ Template.contentOffers.events({
               }
             });
           }
-          else{ //success (user deleted)
+          else{ //success (offer deleted)
             swal.close();
             Bert.alert("Offer successfully deleted!", "success");
           }

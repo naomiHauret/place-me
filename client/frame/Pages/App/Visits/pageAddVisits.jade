@@ -12,54 +12,19 @@ template(name="contentIndicationsAddVisit")
 template(name="contentAddVisits")
   div(class="content_form")
     form(name="visitForm")
-      div(class="inline-row")  
-        fieldset(class="column visitFormStep")
-          legend 
-            h4 Placement            
-          unless adding
-            if selectedPlacement
-              h5 Student information
-              div(class="row-inline")
-                div(class="column")
-                  label First name
-                  span {{ student.profile.firstName }} 
-                div(class="column")
-                  label Last name
-                  span {{ student.profile.lastName }}
-              div(class="row-inline")
-                div(class="column")
-                  label Cohort
-                  span {{ cohort }}
-                div(class="column")
-                  label Programme
-                  span {{ programme }}
-              span(class="separator")
-              div(class="row-inline")
-                h5 Placement information 
-                div(class="column")
-                  label E-mail address 
-                  span {{ studentEmail }}
-                div(class="column")
-                  label Phone number
-                  span {{ student.profile.phone }}        
-              button(type="button" name="selectPlacement")
-                i(class="fa fa-ellipsis-h" aria-hidden="true")
-                | Select another placement
-            else
-              button(type="button" name="selectPlacement")
-                i(class="fa fa-ellipsis-h" aria-hidden="true")
-                | Select a placement
+      {{> inputDateTime }}
       div(class="row")
-        unless adding  
-          if definedPlacement
-            button(type="submit")
-              i(class="fa fa-plus" aria-hidden='true')
-              | Add a new visit
-          else 
-            p 
-              i To create a new visit, select a placement.
-        else
-          div(class="column center")
-            p
-              i(class="fa fa-spinner fa-spin fa-2x" aria-hidden="true")
-              | We're adding this new visit, please wait...
+        if selectedPlacement
+          unless adding  
+            if definedPlacement
+              button(type="submit")
+                i(class="fa fa-plus" aria-hidden='true')
+                | Add a new visit
+          else
+            div(class="column center")
+              p
+                i(class="fa fa-spinner fa-spin fa-2x" aria-hidden="true")
+                | We're adding this new visit, please wait...
+        p
+          i You have to select a placement.
+/

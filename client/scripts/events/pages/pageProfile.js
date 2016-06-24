@@ -1,3 +1,12 @@
+Template.contentProfile.onCreated(function(){
+  Bert.alert({
+    title: 'Loading data...',
+    message: 'Please, wait few seconds, data are being fetched and displayed.',
+    type: 'info',
+    style: 'growl-bottom-right',
+    icon: 'fa-spinner fa-spin'
+  });
+});
 Template.contentProfile.events({
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -37,10 +46,10 @@ Template.contentProfile.events({
         closeOnConfirm: false
       },
       function(isConfirm){
-        let userId= $(event.target).val(); //_id of the user we have to delete
+        let userId= $(event.target).val(); //_id of the user we have to block
         if(isConfirm){
           Meteor.call("authorizeUserAccount", userId, function(error, result){
-            if(error){ //user not deleted
+            if(error){ //user not blocked
               swal({
                 title: "An error occured",
                 text: "We're sorry but this user <b>couldn't be unblocked</b>. Please, <b>try again</b>.",
@@ -93,10 +102,10 @@ Template.contentProfile.events({
       closeOnConfirm: false
     },
     function(isConfirm){
-      let userId= $(event.target).val(); //_id of the user we have to delete
+      let userId= $(event.target).val(); //_id of the user we have to block
       if(isConfirm){
         Meteor.call("blockUserAccount", userId, function(error, result){
-          if(error){ //user not deleted
+          if(error){ //user not blocked
             swal({
               title: "An error occured",
               text: "We're sorry but this user <b>couldn't be blocked</b>. Please, <b>try again</b>.",
@@ -146,21 +155,33 @@ Template.contentProfile.events({
       let userId= $("button[name='delete']").val();
       console.log(userId);
       Meteor.call("removeUserAccount", userId, function(error, result){
-        if(error){
-          Bert.alert("Oops. Seems like there's a problem. Please reload the page and try again.", "danger");
-        }
-        else{
+        if(error){ //offer not deleted
           swal({
-            title: "User deleted!",
-            text: "This user has been deleted!",
-            type: "success",
-            showCancelButton: false,
+            title: "An error occured",
+            text: "We're sorry but this user <b>couldn't be deleted</b>. Please, <b>try again</b>.",
+            type: "error",
+            showCancelButton: true,
             confirmButtonColor: "#6E3BD2",
-            confirmButtonText: "Close",
-            timer: 5000,
-            closeOnConfirm: true
+            confirmButtonText: "Try again",
+            cancelButtonText: "Cancel",
+            closeOnConfirm: true,
+            html:true,
+            closeOnCancel: true
+          },
+          function(isConfirm){ //try again clicked
+            if (isConfirm) {
+              document.location.reload(true); //reload the page
+            }
+            else{
+              Bert.alert("To delete this user you will have to reload the page.", "info");
+            }
           });
+        }
+        else{ //success (user deleted)
+          swal.close();
           Router.go("users");
+          Bert.alert("User successfully deleted!", "success");
+
         }
       });
 

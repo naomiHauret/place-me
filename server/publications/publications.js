@@ -10,9 +10,19 @@ Meteor.publish('userInfo', function () {
   return Meteor.users.find({}, {fields: {emails: 1}});
 });
 
+//Publish all students
+Meteor.publish('students', function(){
+  return Meteor.users.find({ "roles": "registered", $and: [{"roles": "student"}, {"profile.isAuthorized": true}] },  {sort: {'profile.lastName': 1}});
+});
+
+
 //Publish unplaced students
 Meteor.publish('unplacedStudents', function(){
   return Meteor.users.find({ "roles": "registered", $and: [{"roles": "student"}, {"profile.isAuthorized": true}, {"profile.isPlaced": false}] },  {sort: {'profile.lastName': 1}});
+});
+
+Meteor.publish('placedStudents', function(){
+  return Meteor.users.find({ "roles": "registered", $and: [{"roles": "student"}, {"profile.isAuthorized": true}, {"profile.isPlaced": true}] },  {sort: {'profile.lastName': 1}});
 });
 
 //Publish tutors
@@ -72,9 +82,23 @@ Meteor.publish('trustOrganizations', function(){
   return Establishments.find({'type': 'trustOrganization'}, {sort: {'name': 1}});
 });
 
+//Publish all offers
 Meteor.publish('offers', function(){
-  return Offers.find({}, {sort: {'createdAt': -1 }});
+  return Offers.find();
 });
+
+//Publish active offers only
 Meteor.publish('activeOffers', function(){
   return Offers.find({'isActive': true}, {sort: {'createdAt': -1 }});
+});
+
+//Publish all placements
+Meteor.publish('placements', function(){
+  return Placements.find();
+});
+
+
+//Publish all visits
+Meteor.publish("visits", function(){
+  return Visits.find();
 });

@@ -1,31 +1,37 @@
-Template.contentPlacements.helpers({
-
+Template.contentVisits.helpers({
   isTutor(){
     let tutorsArray= tutorsArray=Placements.findOne({_id: this._id}).tutorsIds;
     return ($.inArray(Meteor.userId(), tutorsArray) === true);
   },
 
+  visit(){
+    return Visits.findOne({_id: this._id});
+  },
+
   placement(){
-    return Placements.find();
+    let placementId= Visits.findOne({_id: this._id}).placementId;
+    return Placements.findOne({_id: placementId});
   },
 
   student(){
-    let studentId= "";
-    let student= "";
-    studentId= Placements.findOne({_id:this._id}).studentId;
-    student=Meteor.users.findOne({_id: studentId});
+    let placementId= Visits.findOne({_id: this._id}).placementId;
+    let studentId= Placements.findOne({_id:placementId}).studentId;
+    let student=Meteor.users.findOne({_id: studentId});
 
     return student.profile.firstName+" "+student.profile.lastName;
   },
 
   hostOrganization(){
+    let placementId= Visits.findOne({_id: this._id}).placementId;
+    let placement= Placements.findOne({_id: placementId});
+
     let hostId="";
-    if(Placements.findOne({_id: this._id}).isFromOffer ===true ){
-      let offerId= Placements.findOne({_id: this._id}).offerId;
+    if(placement.isFromOffer ===true ){
+      let offerId= placement.offerId;
       hostId= Offers.findOne({_id: offerId}).hostOrganizationId;
     }
     else{
-      hostId= Placements.findOne({_id: this._id}).hostOrganizationId;
+      hostId= placement.hostOrganizationId;
     }
 
     let host= Establishments.findOne({_id: hostId});
@@ -33,64 +39,25 @@ Template.contentPlacements.helpers({
   },
 
   placementTheme(){
+    let placementId= Visits.findOne({_id: this._id}).placementId;
+    let placement= Placements.findOne({_id: placementId});
     let themeId="";
-    if(Placements.findOne({_id: this._id}).isFromOffer ===true ){
-      let offerId= Placements.findOne({_id: this._id}).offerId;
+    if(placement.isFromOffer ===true ){
+      let offerId= placement.offerId;
       themeId= Offers.findOne({_id: offerId}).themeId;
     }
 
     else{
-      themeId= Placements.findOne({_id: this._id}).themeId;
+      themeId= placement.themeId;
     }
     return Themes.findOne({_id: themeId}).themeName;
   },
 
-  placementThemetypes(){
-    let themetypes ="";
-    let themetypesIdArray="";
+  visitTutor(){
+    let tutorId= Visits.findOne({_id: this._id}).tutorId;
+    let tutor= Meteor.users.findOne({_id: tutorId});
 
-    if(Placements.findOne({_id: this._id}).isFromOffer ===true ){
-      let offerId= Placements.findOne({_id: this._id}).offerId;
-      themetypesIdArray= Offers.findOne({_id: offerId}).themeTypesId;
-    }
-    else{
-      themetypesIdArray= Placements.findOne({_id: this._id}).themeTypesId;
-    }
-
-    themetypesIdArray.map(function(o){
-      themetypes+= " | "+Themetypes.findOne({_id: o}).code;
-    });
-
-    return themetypes;
-
-  },
-
-  dates(){
-    return "from "+Placements.findOne({_id: this._id}).startDate+" to "+Placements.findOne({_id: this._id}).endDate;
-  },
-
-  educators(){
-    let educatorsArray=Placements.findOne({_id: this._id}).onSiteEducatorIds;
-    educatorsArray.push(Placements.findOne({_id: this._id}).offSiteEducatorId);
-    let educators="";
-
-    educatorsArray.map(function(o){
-      educator= Meteor.users.findOne({_id: o});
-      educators+= educator.profile.firstName+" "+educator.profile.lastName+"; ";
-    });
-    return educators;
-  },
-
-  tutors(){
-    let tutorsArray=Placements.findOne({_id: this._id}).tutorsIds;
-    let tutors="";
-
-    tutorsArray.map(function(o){
-      tutor=Meteor.users.findOne({_id: o});
-      tutors+= tutor.profile.firstName+" "+tutor.profile.lastName+"; ";
-    });
-
-    return tutors;
+    return tutor.profile.firstName+" "+tutor.profile.lastName;
   },
   buttonAttributes: function(){
     return {'type': 'button', 'content': "Load more placements..."}
@@ -99,16 +66,16 @@ Template.contentPlacements.helpers({
     return { 'class': '_input-searchbar', 'placeholder': 'Start searching...' };
   },
   index: function () {
-    return PlacementsIndex;
+    return VisitsIndex;
   },
   resultsCount: function () {
-    return PlacementsIndex.getComponentDict().get('count');
+    return VisitsIndex.getComponentDict().get('count');
   },
   showMore: function () {
     return false;
   },
-  quickUploadPlacements(){
-    return Session.get("quickUploadPlacements");
+  quickUploadVisits(){
+    return Session.get("quickUploadVisits");
   },
 
 
@@ -118,24 +85,24 @@ Template.contentPlacements.helpers({
 });
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Template.contentAddPlacements.helpers({
+Template.contentAddVisits.helpers({
   adding(){
     return Template.instance().adding.get();
   },
-  selectStudent(){
-    return Session.get("selectStudent");
+  selectTutor(){
+    return Session.get("selectTutor");
   },
-  selectOffer(){
-    return Session.get("selectOffer");
+  selectPlacement(){
+    return Session.get("selectPlacement");
   },
 
   definedPlacement(){
-    return ( (Session.get("selectedStudent") !== undefined &&  Session.get("selectedOffer") !== undefined) || (Session.get("selectedStudent") !== undefined && Template.instance().createPlacement.get()===true ));
+    return ( (Session.get("selectedTutor") !== undefined &&  Session.get("selectedPlacement") !== undefined) || (Session.get("selectedTutor") !== undefined && Template.instance().createVisit.get()===true ));
 
   },
 
-  createPlacement(){
-    return Template.instance().createPlacement.get();
+  createVisit(){
+    return Template.instance().createVisit.get();
   },
 
   buttonAttributes: function(){
@@ -145,77 +112,53 @@ Template.contentAddPlacements.helpers({
     return { 'class': '_input-searchbar', 'placeholder': 'Start searching...' };
   },
 
-  educatorsIndex: function () {
+  tutorsIndex: function () {
     return UsersIndex;
   },
 
-  studentsIndex: function () {
-    return UsersIndex;
+  placementsIndex: function () {
+    return VisitsIndex;
+  },
+  resultsCountplacements: function () {
+    return PlacementsIndex.getComponentDict().get('count');
   },
 
-
-  offersIndex: function () {
-    return OffersIndex;
-  },
-  resultsCountOffers: function () {
-    return OffersIndex.getComponentDict().get('count');
-  },
-
-  resultsCountStudents: function () {
+  resultsCountTutors: function () {
     return UsersIndex.getComponentDict().get('count');
   },
 
   showMore: function () {
     return false;
   },
-  selectedOffer(){
-    return Session.get("selectedOffer");
+  selectedPlacement(){
+    return Session.get("selectedPlacement");
   },
 
-  selectedStudent(){
-    return Session.get("selectedStudent");
+  selectedTutor(){
+    return Session.get("selectedTutor");
   },
 
 
-  student(){
-    let studentId= Session.get("selectedStudent");
-    return Meteor.users.findOne({_id: studentId});
+  tutor(){
+    let tutorId= Session.get("selectedTutor");
+    return Meteor.users.findOne({_id: tutorId});
   },
 
-  cohort(){
-    let studentId= Session.get("selectedStudent");
-    let cohortId= Meteor.users.findOne({_id: studentId}).profile.cohortId;
-    return Cohorts.findOne({_id: cohortId}).cohortYear;
-  },
-
-  studentEmail(){
-    let studentId= Session.get("selectedStudent");
-    return Meteor.users.findOne({_id: studentId}).emails[0].address;
-  },
-  programme(){
-    let studentId= Session.get("selectedStudent");
-    let programmeId= Meteor.users.findOne({_id: studentId}).profile.programmeId;
-    return Programmes.findOne({_id: programmeId}).programmeName;
-  },
-
-  currentTutor(){
-    return Meteor.users.findOne({_id: Meteor.userId()});
-  },
 
   offer(){
-    let offerId= Session.get("selectedOffer");
+    let offerId= Session.get("selectedPlacement");
     return Offers.findOne({_id: offerId});
   },
 
 
   offerHostOrganization(){
-    let offerId= Session.get("selectedOffer");
+    let offerId= Session.get("selectedPlacement");
     let hostId= Offers.findOne({_id: offerId}).hostOrganizationId;
     return Establishments.findOne({_id: hostId}).name;
   },
 
   offerTheme(){
-    let offerId= Session.get("selectedOffer");
+    let offerId= Session.get("selectedPlacement");
     let themeId= Offers.findOne({_id: offerId}).themeId;
     return Themes.findOne({_id: themeId}).themeName;
   },
@@ -247,7 +190,7 @@ Template.contentAddPlacements.helpers({
   },
 
   isAccommodationProvided(){
-    let offerId= Session.get("selectedOffer");
+    let offerId= Session.get("selectedPlacement");
     let provided="no";
     if(Offers.findOne({_id: offerId}).accommodation === true){
       provided= "yes";
@@ -257,7 +200,7 @@ Template.contentAddPlacements.helpers({
   },
 
   isCarProvided(){
-    let offerId= Session.get("selectedOffer");
+    let offerId= Session.get("selectedPlacement");
     let provided="no";
     if(Offers.findOne({_id: offerId}).car === true){
       provided= "yes";
@@ -281,13 +224,13 @@ Template.contentAddPlacements.helpers({
   },
 
   educators(){
-    let offerId= Session.get("selectedOffer");
+    let offerId= Session.get("selectedPlacement");
     let hostId= Offers.findOne({_id: offerId}).hostOrganizationId;
     return Meteor.users.find({ "roles": "registered", $and: [{"roles": "educator"}, {"profile.isAuthorized": true}, {"profile.hostOrganizationId": hostId} ]});
   },
 
   offerThemetypes(){
-    let offerId= Session.get("selectedOffer");
+    let offerId= Session.get("selectedPlacement");
     let themetypes ="";
     let themetypesIdArray= Offers.findOne({_id: offerId }).themeTypesId;
     themetypesIdArray.map(function(o){
@@ -298,7 +241,7 @@ Template.contentAddPlacements.helpers({
   },
 
   displayPlacementDetails(){
-    return Session.get("selectedOffer") !== undefined && Session.get("selectedStudent") !== undefined;
+    return Session.get("selectedPlacement") !== undefined && Session.get("selectedTutor") !== undefined;
   },
 
   quickAddTheme(){

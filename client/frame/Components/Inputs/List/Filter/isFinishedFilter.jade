@@ -1,0 +1,9 @@
+template(name="isFinishedFilter")
+  div(class="column")
+    label(for="finished")
+      i(class="fa fa-flag-checkered" aria-hidden="true")
+      | Placement state
+    select( aria-labelledby="finished" name="placementFinishedFilter" )
+      option(selected value="all") All 
+      option(value="false") Ongoing
+      option(value="true") Finished

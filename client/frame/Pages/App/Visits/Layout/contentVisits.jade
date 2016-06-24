@@ -1,0 +1,72 @@
+template(name="contentVisits")
+  +contentFor("floatingButtons")
+    if isInRole "tutor"
+      button(class="floating-button" type="button" name="uploadVisits" title="Update visits..." )
+        i( class="fa fa-upload ")
+        i(class="fa fa-ellipsis-h fa-small")
+  +contentFor("sidebar")
+    if isInRole "tutor"
+      if quickUploadVisits
+        h2 Update visits
+        p To update the visit collection, upload a CSV file below.
+        unless uploading
+          div(class="row")
+            div(class="column")
+              label(for="updateVisits")
+                i(class="fa fa-map-calendar" aria-hidden="true")
+                | Upload visits file
+                input(type="file" name="updateVisits" class="fileUploader" accept=".csv" aria-labelledby="upload a csv file to update visits" title="upload a csv file to update visits")
+        else
+          p(class="text-centered")
+            i(class="fa fa-spin fa-refresh massiveSize" aria-hidden="true")
+            | Uploading files...
+  form(class="form_search-quick")
+    h2 Browse visits
+    +EasySearch.IfInputEmpty index=index
+        div(class="_input-example") 
+          div(class="row")
+            h4 Filter by
+          div(class="row row_subfilter")
+            {{> isPassedFilter }}
+    +EasySearch.IfSearching index=index
+      p Searching...
+    div(class="row")
+      div(class='column')
+        h4 Results: {{resultsCount}} 
+      div(class="column")
+        p {{> yield "contentIndications" }}
+    ul(class="list_result")  
+      li(class="list_result-item list_result-header")
+        div(class="result")
+          div(class="row row_main")
+            span(class="column")
+              b Placement reference
+            span(class="column")
+              b Tutor
+            span(class="column")
+              b Host organization
+            span(class="column")
+              b Student
+            span(class="column")
+              b Theme
+            span(class="column")
+              b Date and time
+      +EasySearch.Each index=index
+        a(href="/app/visits/{{_id}}" title="See the visit details")
+          li(class="list_result-item")
+            div(class="result")
+              div(class="row row_main")
+                span(class="column") {{ visit.placementId }}
+                span(class="column") {{ visitTutor }}
+                span(class="column") {{ hostOrganization }}
+                span(class="column") {{ student }}
+                span(class="column") {{ placementTheme }}
+                span(class="column") {{ visit.dateTime }}
+        if isTutor
+            button(value="{{_id}}" title="delete visit" type="button" class="column result_button delete" name="delete")
+              span
+                span(class="icon iconAction-delete")
+                | Delete
+    {{ > EasySearch.LoadMore index=index attributes=buttonAttributes }}
+    +EasySearch.IfNoResults index=index
+      p There are no visits corresponding to these criteria.

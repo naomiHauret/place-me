@@ -1,8 +1,8 @@
-Template.contentOfferDetails.onRendered(function() {
+Template.contentPlacementDetails.onRendered(function() {
   GoogleMaps.load({ v: '3', key: 'AIzaSyBszHTpXtymnaol8G_ggrM82IL4ISAfYpE', libraries: 'geometry,places' }); //API key from Google Maps api (devlopers)
 });
 
-Template.contentOfferDetails.onCreated(function() {
+Template.contentPlacementDetails.onCreated(function() {
    // We can use the `ready` callback to interact with the map API once the map is ready.
    GoogleMaps.ready('establishmentPositionMap', function(map) {
      // Add a marker to the map once it's ready
@@ -11,6 +11,7 @@ Template.contentOfferDetails.onCreated(function() {
        map: map.instance
      });
    });
+
    Bert.alert({
      title: 'Loading data...',
      message: 'Please, wait few seconds, data are being fetched and displayed.',
@@ -18,40 +19,37 @@ Template.contentOfferDetails.onCreated(function() {
      style: 'growl-bottom-right',
      icon: 'fa-spinner fa-spin'
    });
- });
+});
 
-
-Template.contentOfferDetails.events({
-  "click button[name='place']": function(event, template){
-    Session.set("selectedOffer",  $(event.target).val() );
-    Router.go("add-placement");
+Template.contentPlacementDetails.events({
+  "click button[name='visit']": function(event, template){
+    Session.set("selectedPlacement",  $(event.target).val() );
+    Router.go("add-visit");
   },
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   "click .delete": function(event, template){
     event.preventDefault();
-    let chosenOfferId=  $(event.target).val();
-    let establishment=Establishments.findOne({_id: chosenOfferId}).hostOrganizationId;
-    let name= establishment.name;
+    let chosenPlacementId=  $(event.target).val();
 
     swal({
-      title: "Are you sure you want to delete this placement offer at "+name+" ?",
+      title: "Are you sure you want to delete this placement?",
       text: "All the data related to it will be deleted too!",
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#6E3BD2",
-      confirmButtonText: "Yes, delete this offer!",
+      confirmButtonText: "Yes, delete this placement!",
       showLoaderOnConfirm: true,
       closeOnConfirm: false
     },
     function(isConfirm){
-      let offerId= $(event.target).val(); //_id of the user we have to delete
+      let placementId= $(event.target).val(); //_id of the user we have to delete
       if(isConfirm){
-        Meteor.call("removeOffer", offerId, function(error, result){
-          if(error){ //offer not deleted
+        Meteor.call("removePlacement", placementId, function(error, result){
+          if(error){ //placement not deleted
             swal({
               title: "An error occured",
-              text: "We're sorry but this offer <b>couldn't be deleted</b>. Please, <b>try again</b>.",
+              text: "We're sorry but this placement <b>couldn't be deleted</b>. Please, <b>try again</b>.",
               type: "error",
               showCancelButton: true,
               confirmButtonColor: "#6E3BD2",
@@ -66,15 +64,14 @@ Template.contentOfferDetails.events({
                 document.location.reload(true); //reload the page
               }
               else{
-                Bert.alert("To delete this offer you will have to reload the page.", "info");
+                Bert.alert("To delete this placement you will have to reload the page.", "info");
               }
             });
           }
-          else{ //success (offer deleted)
+          else{ //success (user deleted)
             swal.close();
-            Router.go("offers");
-            Bert.alert("Offer successfully deleted!", "success");
-
+            Router.go("placements");
+            Bert.alert("Placement successfully deleted!", "success");
           }
         });
       }

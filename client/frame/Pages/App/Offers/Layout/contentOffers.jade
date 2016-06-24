@@ -69,16 +69,16 @@ template(name="contentOffers")
                 span(class="column") {{ themetypes }}
                 span(class="column") {{ startDate }}
                 span(class="column") {{ endDate }}
-          if isInRole "tutor"
-            div(class="row row_aside") 
-              button(value="{{_id}}" title="place a student" type="button" class="column result_button place" name="place")
-                span
-                  span(class="icon iconAction-place")
-                  | Place a student 
-              button(value="{{_id}}" title="delete offer" type="button" class="column result_button delete" name="delete")
-                span
-                  span(class="icon iconAction-delete")
-                  | Delete
+        if isInRole "tutor"
+          div(class="row row_aside") 
+            button(value="{{_id}}" title="place a student" type="button" class="column result_button place" name="place")
+              span
+                span(class="icon iconAction-place")
+                | Place a student 
+            button(value="{{_id}}" title="delete offer" type="button" class="column result_button delete" name="delete")
+              span
+                span(class="icon iconAction-delete")
+                | Delete
     {{ > EasySearch.LoadMore index=index attributes=buttonAttributes }}
     +EasySearch.IfNoResults index=index
       p There are no offers corresponding to these criteria.

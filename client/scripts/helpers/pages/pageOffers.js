@@ -27,7 +27,7 @@ Template.contentOffers.helpers({
   },
 
   buttonAttributes: function(){
-    return {'type': 'button', 'content': "Load more establishments..."}
+    return {'type': 'button', 'content': "Load more offers..."}
   },
   inputAttributes: function () {
     return { 'class': '_input-searchbar', 'placeholder': 'Start searching...' };

@@ -2,6 +2,13 @@ Template.contentUsers.onCreated(function(){
   Template.instance().filterStudents = new ReactiveVar(false);
   Template.instance().filterCoordinators = new ReactiveVar(false);
   Template.instance().filterEducators = new ReactiveVar(false);
+  Bert.alert({
+    title: 'Loading data...',
+    message: 'Please, wait few seconds, data are being fetched and displayed.',
+    type: 'info',
+    style: 'growl-bottom-right',
+    icon: 'fa-spinner fa-spin'
+  });
 });
 
 Template.contentUsers.onRendered(function(){
@@ -205,7 +212,6 @@ Template.contentUsers.events({
     },
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
   'change select[name="cohort"]': function(e, template){
       let cohort= $(e.target).val();
       if(cohort === "student" ){

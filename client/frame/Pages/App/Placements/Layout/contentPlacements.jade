@@ -1,0 +1,85 @@
+template(name="contentPlacements")
+  +contentFor("floatingButtons")
+    if isInRole "tutor"
+      button(class="floating-button" type="button" name="uploadPlacements" title="Update placements..." )
+        i( class="fa fa-upload ")
+        i(class="fa fa-ellipsis-h fa-small")
+  +contentFor("sidebar")
+    if isInRole "tutor"
+      if quickUploadPlacements
+        h2 Update placements
+        p To update the placement collection, upload a CSV file below.
+        unless uploading
+          div(class="row")
+            div(class="column")
+              label(for="updatePlacements")
+                i(class="fa fa-map-marker" aria-hidden="true")
+                | Upload placements file
+                input(type="file" name="updatePlacements" class="fileUploader" accept=".csv" aria-labelledby="upload a csv file to update placement" title="upload a csv file to update placements")
+        else
+          p(class="text-centered")
+            i(class="fa fa-spin fa-refresh massiveSize" aria-hidden="true")
+            | Uploading files...
+  form(class="form_search-quick")
+    h2 Browse placements
+    +EasySearch.IfInputEmpty index=index
+        div(class="_input-example") 
+          div(class="row")
+            h4 Filter by
+          div(class="row row_subfilter")
+            {{> isFinishedFilter }}
+            {{> hostFilter }}
+            {{> themeFilter }}
+            if isInRole "tutor"
+              {{> cohortFilter }}
+              {{> programmeFilter }}
+    +EasySearch.IfSearching index=index
+      p Searching...
+    div(class="row")
+      div(class='column')
+        h4 Results: {{resultsCount}} 
+      div(class="column")
+        p {{> yield "contentIndications" }}
+    ul(class="list_result")  
+      li(class="list_result-item list_result-header")
+        div(class="result")
+          div(class="row row_main")
+            span(class="column")
+              b Student
+            span(class="column")
+              b Host organization
+            span(class="column")
+              b Theme
+            span(class="column")
+              b Themetypes
+            span(class="column")
+              b Dates
+            span(class="column")
+              b Educators
+            span(class="column")
+              b Tutors
+      +EasySearch.Each index=index
+        a(href="/app/placements/{{_id}}" title="See the placement details")
+          li(class="list_result-item")
+            div(class="result")
+              div(class="row row_main")
+                span(class="column") {{ student }}
+                span(class="column") {{ hostOrganization }}
+                span(class="column") {{ placementTheme }}
+                span(class="column") {{ placementThemetypes }}
+                span(class="column") {{ dates }}
+                span(class="column") {{ educators }}
+                span(class="column") {{ tutors }}
+        if isTutor
+          div(class="row row_aside") 
+            button(value="{{_id}}" title="set up a visit" type="button" class="column result_button visit" name="visit")
+              span
+                span(class="icon iconAction-visit")
+                | Set up a visit
+            button(value="{{_id}}" title="delete placement" type="button" class="column result_button delete" name="delete")
+              span
+                span(class="icon iconAction-delete")
+                | Delete
+    {{ > EasySearch.LoadMore index=index attributes=buttonAttributes }}
+    +EasySearch.IfNoResults index=index
+      p There are no placements corresponding to these criteria.

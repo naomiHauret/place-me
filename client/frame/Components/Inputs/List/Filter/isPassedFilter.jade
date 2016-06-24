@@ -1,0 +1,9 @@
+template(name="isPassedFilter")
+  div(class="column")
+    label(for="passed")
+      i(class="fa fa-flag-checkered " aria-hidden="true")
+      | Visit state
+    select( aria-labelledby="passed" name="visitPassedFilter" )
+      option(selected value="all") All 
+      option(value="false") Incoming
+      option(value="true") Passsed

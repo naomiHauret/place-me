@@ -537,6 +537,9 @@ $pic: "/images/background.jpg";
       content: "\f041";
     }
 
+    .iconAction-visit:before{
+      content: "\f073";
+    }
     .row_actions, .list_result-item .result .row_aside{
       padding-top:15px;
       padding-bottom: 15px;
@@ -697,6 +700,12 @@ SMALLER SCREEN
     margin-right: 0;
     margin-left: 0;
     text-align: center;
+  }
+
+  .list_result-item .result .row_aside{
+    .column{
+      text-align:center;
+    }
   }
 }
 

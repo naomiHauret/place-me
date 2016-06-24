@@ -1,0 +1,152 @@
+template(name="breadcrumbPlacementDetails")
+  li(class="crumb") Placements
+  li(class="crumb active") ref. {{ placement._id }} 
+      
+template(name="contentIndicationsPlacementDetails")
+  p
+    i(class="fa fa-map-marker fa-fw fa-2x" aria-hidden="true")
+    | This placement is
+    b {{ placementStatus }}
+  if isInRole "tutor"
+    br
+    p You can update the details of this placement by clicking the "Edit details" button below.
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////  
+//////////////////////////////////////////////////////////////////////////////////////////////////////////  
+template(name="contentPlacementDetails")
+  h2 Placement ref. {{ placement._id }}
+  p {{> yield "contentIndications" }}
+  div(class="row row_actions") 
+    if isTutor
+      button(value="{{ placement._id }}" class="column edit" title="Edit..." name="edit")
+        span
+          span(class="icon iconAction-book")
+          | Edit...
+      button(value="{{ placement._id }}" title="Set up a visit..." class="column place" name="place")
+        span
+          span(class="icon iconAction-visit")
+            | Set up a visit
+      button(value="{{ placement._id }}" title="Delete this placement" class="column delete" name="delete")
+        span
+          span(class="icon iconAction-delete")
+          | Delete
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////  
+  form
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////  
+    span(class="separator")
+    h4 Information
+    div(class="row")
+      div(class="column")
+        label
+          i(class="fa fa-barcode" aria-hidden="true")
+          | Placement reference
+        span {{placement._id}}
+      if isFromOffer
+        div(class="column")
+          label
+            i(class="fa fa-qrcode" aria-hidden="true")
+            | Offer reference
+          span 
+            a(href="/app/offers/{{ offer._id }}" title="See the offer details")
+              span {{ offer._id }}
+    div(class="row")
+      div(class="column")
+        label
+          i(class="fa fa-building-o" aria-hidden="true")
+          | Host organization
+        span
+          a(href="/app/establishments/{{ hostOrganizationId }}" title="See the establishment details") {{ hostOrganization }}
+      div(class="column")
+        label
+          i(class="fa fa-tag" aria-hidden="true")
+          | Theme
+        span {{ theme }}  
+      div(class="column")
+        label
+          i(class="fa fa-tags" aria-hidden="true")
+          | Themetypes
+        span {{ themetypes }}
+    span(class="separator")
+    h4 Dates
+    div(class="row")
+      div(class="column")
+        label
+          i(class="fa fa-flag-o " aria-hidden="true")
+          | Date of start
+        span {{ placement.startDate }}
+      div(class="column")
+        label
+          i(class="fa fa-flag-checkered " aria-hidden="true")
+          | Date of end
+        span {{ placement.endDate }}
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////        
+    span(class="separator")
+    h4 Student 
+    div(class="row")
+      div(class="column")
+        label
+          i(class="fa fa-graduation-cap" aria-hidden="true")
+          | Name
+        p {{ student }}
+      div(class="column")
+        label
+          i(class="fa fa-calendar-o" aria-hidden="true")
+          | Cohort
+        p {{ cohort }}
+      div(class="column")
+        label
+          i(class="fa fa-certificate" aria-hidden="true")
+          | Programme
+        {{ programme }}
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    span(class="separator")
+    h4 Supervizion 
+    div(class="row")
+      div(class="column")
+        label
+          i(class="fa fa-user" aria-hidden="true")
+          | Tutors
+        p {{ tutors }}
+      div(class="column")
+        label
+          i(class="fa fa-user-md" aria-hidden="true")
+          | On-site educators
+        p {{ onSiteEducators }}
+      div(class="column")
+        label
+          i(class="fa fa-medkit" aria-hidden="true")
+          | Off-site educator
+        p {{ offSiteEducator }}
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////    
+    span(class="separator")
+    h4 Required
+    div(class="row")
+      div(class="column")
+        label
+          i(class="fa fa-bed" aria-hidden="true")
+          | Accommodation
+        p {{ isAccommodationRequired }}
+      div(class="column")
+        label
+          i(class="fa fa-car" aria-hidden="true")
+          | Car
+        p {{ isCarRequired }}
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////    
+    span(class="separator")
+    h4 Other information
+    div(class="row")
+      div(class="column")
+        label
+          i(class="fa fa-ellipsis-h" aria-hidden="true")
+          | Additional information
+        p {{ placement.additionalInformation }}
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////    
+    span(class="separator")
+    h4 Location
+    div(class="row")
+      div(class="column")
+        label
+          i(class="fa fa-map-signs" aria-hidden="true")
+          | How to access
+        div(class="map-container")
+          {{> googleMap name="establishmentPositionMap" options=establishmentPosition }}

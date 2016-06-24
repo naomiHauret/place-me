@@ -103,6 +103,7 @@ Template.themetypesCloud.onCreated(function(){
 Template.educatorsSelects.onCreated(function(){
    let self = this;
    self.autorun(function() {
+      self.subscribe('hostOrganizations');
        self.subscribe('educators');
    });
 });
@@ -258,6 +259,42 @@ Template.contentIndicationsOfferDetails.onCreated(function(){
 });
 
 
+
+Template.contentPlacements.onCreated(function(){
+  let self = this;
+
+  self.autorun(function() {
+      self.subscribe('offers');
+      self.subscribe('placements');
+      self.subscribe("themes");
+      self.subscribe("themetypes");
+      self.subscribe('placedStudents');
+      self.subscribe('tutors');
+      self.subscribe('educators');
+      self.subscribe('hostOrganizations');
+      self.subscribe('cohorts');
+      self.subscribe('programmes');
+
+  });
+});
+
+Template.breadcrumbPlacementDetails.onCreated(function(){
+  let self = this;
+  self.autorun(function() {
+      self.subscribe('placements');
+  });
+});
+
+Template.contentIndicationsPlacementDetails.onCreated(function(){
+  let self = this;
+  self.autorun(function() {
+      self.subscribe('placements');
+      self.subscribe('themetypes');
+      self.subscribe('themes');
+      self.subscribe("hostOrganizations");
+  });
+});
+
 Template.contentAddPlacements.onCreated(function(){
   let self = this;
 
@@ -274,6 +311,76 @@ Template.contentAddPlacements.onCreated(function(){
 
   });
 });
+
+Template.contentPlacementDetails.onCreated(function(){
+  let self = this;
+    self.autorun(function() {
+    self.subscribe('offers');
+    self.subscribe('placements');
+    self.subscribe("themes");
+    self.subscribe("themetypes");
+    self.subscribe('students');
+    self.subscribe('tutors');
+    self.subscribe('educators');
+    self.subscribe('hostOrganizations');
+    self.subscribe('cohorts');
+    self.subscribe('programmes');
+  });
+});
+
+
+Template.contentVisits.onCreated(function(){
+  let self = this;
+
+  self.autorun(function() {
+    self.subscribe('visits');
+    self.subscribe('students');
+    self.subscribe('themes');
+    self.subscribe('hostOrganizations');
+    self.subscribe('placements');
+    self.subscribe('offers');
+    self.subscribe('tutors')
+  });
+});
+
+Template.breadcrumbVisitDetails.onCreated(function(){
+  let self = this;
+  self.autorun(function() {
+    self.subscribe('visits');
+    self.subscribe('placements');
+    self.subscribe('tutors')
+  });
+});
+
+Template.contentIndicationsVisitsDetails.onCreated(function(){
+  let self = this;
+  self.autorun(function() {
+      self.subscribe('visits');
+      self.subscribe('placements');
+      self.subscribe('tutors');
+  });
+});
+
+Template.contentAddVisits.onCreated(function(){
+  let self = this;
+
+  self.autorun(function() {
+    self.subscribe('visits');
+    self.subscribe('placements');
+    self.subscribe('tutors');
+  });
+});
+
+Template.contentVisitDetails.onCreated(function(){
+  let self = this;
+    self.autorun(function() {
+    self.subscribe('visits');
+    self.subscribe('placements');
+    self.subscribe('tutors');
+  });
+});
+
+
 
 Template.sidebar.onCreated(function(){
   let self = this;

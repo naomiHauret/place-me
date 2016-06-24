@@ -11,6 +11,14 @@ Template.contentEstablishmentDetails.onCreated(function() {
        map: map.instance
      });
    });
+
+   Bert.alert({
+     title: 'Loading data...',
+     message: 'Please, wait few seconds, data are being fetched and displayed.',
+     type: 'info',
+     style: 'growl-bottom-right',
+     icon: 'fa-spinner fa-spin'
+   });
  });
 
 
@@ -34,10 +42,10 @@ Template.contentEstablishmentDetails.onCreated(function() {
        closeOnConfirm: false
      },
      function(isConfirm){
-       let establishmentId= $(event.target).val(); //_id of the user we have to delete
+       let establishmentId= $(event.target).val(); //_id of the establishment we have to delete
        if(isConfirm){
          Meteor.call("removeEstablishment", establishmentId, function(error, result){
-           if(error){ //user not deleted
+           if(error){ //establishment not deleted
              swal({
                title: "An error occured",
                text: "We're sorry but this establishment <b>couldn't be deleted</b>. Please, <b>try again</b>.",
@@ -59,8 +67,9 @@ Template.contentEstablishmentDetails.onCreated(function() {
                }
              });
            }
-           else{ //success (user deleted)
+           else{ //success (establishment deleted)
              swal.close();
+             Router.go("establishments");
              Bert.alert("Establishment successfully deleted!", "success");
            }
          });
